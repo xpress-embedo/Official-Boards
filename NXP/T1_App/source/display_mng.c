@@ -191,9 +191,9 @@ void Display_Update( void )
     // enable column data (not the shift register data)
     if( column_data & 0x01 )          SET_LINE( HD_COL1 );
     if( column_data & 0x02 )          SET_LINE( HD_COL2 );
-    if( column_data & 0x03 )          SET_LINE( HD_COL3 );
-    if( column_data & 0x04 )          SET_LINE( HD_COL4 );
-    if( column_data & 0x05 )          SET_LINE( HD_COL5 );
+    if( column_data & 0x04 )          SET_LINE( HD_COL3 );
+    if( column_data & 0x08 )          SET_LINE( HD_COL4 );
+    if( column_data & 0x10 )          SET_LINE( HD_COL5 );
 
     // Display Update Logic Ends Here
   }
