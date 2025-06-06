@@ -19,6 +19,11 @@ pin_labels:
 - {pin_num: '60', pin_signal: TSI0_CH7/PTE0/LPSPI0_SCK/TCLK1, label: HD_ROW4, identifier: HD_ROW3;HD_ROW4}
 - {pin_num: '58', pin_signal: TSI0_CH5/PTA10/LPUART0_TX/FXIO_D0, label: HD_ROW5, identifier: HD_ROW5}
 - {pin_num: '59', pin_signal: TSI0_CH6/PTE1/LPSPI0_SIN/LPI2C0_HREQ, label: HD_ROW6, identifier: HD_ROW6}
+- {pin_num: '28', pin_signal: ADC0_SE14/TSI1_CH21/PTC16, label: HD_COL1, identifier: HD_COL1}
+- {pin_num: '27', pin_signal: ADC0_SE12/TSI1_CH22/PTC17, label: HD_COL2, identifier: HD_COL2}
+- {pin_num: '19', pin_signal: ADC0_SE5/TSI0_CH24/PTB4/FTM0_CH4/LPSPI0_SOUT/TRGMUX_IN1, label: HD_COL3, identifier: HD_COL3}
+- {pin_num: '20', pin_signal: ADC0_SE7/ACMP0_IN4/PTC3/FTM0_CH3/FXIO_D7, label: HD_COL4, identifier: HD_COL4}
+- {pin_num: '21', pin_signal: ADC0_SE15/ACMP0_IN5/PTC2/FTM0_CH2/FXIO_D6, label: HD_COL5, identifier: HD_COL5}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -51,6 +56,11 @@ BOARD_InitPins:
   - {pin_num: '60', peripheral: GPIOE, signal: 'GPIO, 0', pin_signal: TSI0_CH7/PTE0/LPSPI0_SCK/TCLK1, identifier: HD_ROW4, direction: OUTPUT, gpio_init_state: 'true'}
   - {pin_num: '58', peripheral: GPIOA, signal: 'GPIO, 10', pin_signal: TSI0_CH5/PTA10/LPUART0_TX/FXIO_D0, direction: OUTPUT, gpio_init_state: 'true'}
   - {pin_num: '59', peripheral: GPIOE, signal: 'GPIO, 1', pin_signal: TSI0_CH6/PTE1/LPSPI0_SIN/LPI2C0_HREQ, direction: OUTPUT, gpio_init_state: 'true'}
+  - {pin_num: '28', peripheral: GPIOC, signal: 'GPIO, 16', pin_signal: ADC0_SE14/TSI1_CH21/PTC16, direction: OUTPUT}
+  - {pin_num: '27', peripheral: GPIOC, signal: 'GPIO, 17', pin_signal: ADC0_SE12/TSI1_CH22/PTC17, direction: OUTPUT}
+  - {pin_num: '19', peripheral: GPIOB, signal: 'GPIO, 4', pin_signal: ADC0_SE5/TSI0_CH24/PTB4/FTM0_CH4/LPSPI0_SOUT/TRGMUX_IN1, direction: OUTPUT}
+  - {pin_num: '20', peripheral: GPIOC, signal: 'GPIO, 3', pin_signal: ADC0_SE7/ACMP0_IN4/PTC3/FTM0_CH3/FXIO_D7, direction: OUTPUT}
+  - {pin_num: '21', peripheral: GPIOC, signal: 'GPIO, 2', pin_signal: ADC0_SE15/ACMP0_IN5/PTC2/FTM0_CH2/FXIO_D6, direction: OUTPUT}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -65,6 +75,10 @@ void BOARD_InitPins(void)
 {
     /* Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortA);
+    /* Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortB);
+    /* Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortC);
     /* Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortE);
 
@@ -81,6 +95,41 @@ void BOARD_InitPins(void)
     };
     /* Initialize GPIO functionality on pin PTA13 (pin 55)  */
     GPIO_PinInit(BOARD_INITPINS_HD_ROW3_GPIO, BOARD_INITPINS_HD_ROW3_PIN, &HD_ROW3_config);
+
+    gpio_pin_config_t HD_COL3_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTB4 (pin 19)  */
+    GPIO_PinInit(BOARD_INITPINS_HD_COL3_GPIO, BOARD_INITPINS_HD_COL3_PIN, &HD_COL3_config);
+
+    gpio_pin_config_t HD_COL5_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTC2 (pin 21)  */
+    GPIO_PinInit(BOARD_INITPINS_HD_COL5_GPIO, BOARD_INITPINS_HD_COL5_PIN, &HD_COL5_config);
+
+    gpio_pin_config_t HD_COL4_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTC3 (pin 20)  */
+    GPIO_PinInit(BOARD_INITPINS_HD_COL4_GPIO, BOARD_INITPINS_HD_COL4_PIN, &HD_COL4_config);
+
+    gpio_pin_config_t HD_COL1_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTC16 (pin 28)  */
+    GPIO_PinInit(BOARD_INITPINS_HD_COL1_GPIO, BOARD_INITPINS_HD_COL1_PIN, &HD_COL1_config);
+
+    gpio_pin_config_t HD_COL2_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTC17 (pin 27)  */
+    GPIO_PinInit(BOARD_INITPINS_HD_COL2_GPIO, BOARD_INITPINS_HD_COL2_PIN, &HD_COL2_config);
 
     gpio_pin_config_t HD_ROW4_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -115,6 +164,21 @@ void BOARD_InitPins(void)
 
     /* PORTA13 (pin 55) is configured as PTA13 */
     PORT_SetPinMux(BOARD_INITPINS_HD_ROW3_PORT, BOARD_INITPINS_HD_ROW3_PIN, kPORT_MuxAsGpio);
+
+    /* PORTB4 (pin 19) is configured as PTB4 */
+    PORT_SetPinMux(BOARD_INITPINS_HD_COL3_PORT, BOARD_INITPINS_HD_COL3_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC16 (pin 28) is configured as PTC16 */
+    PORT_SetPinMux(BOARD_INITPINS_HD_COL1_PORT, BOARD_INITPINS_HD_COL1_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC17 (pin 27) is configured as PTC17 */
+    PORT_SetPinMux(BOARD_INITPINS_HD_COL2_PORT, BOARD_INITPINS_HD_COL2_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC2 (pin 21) is configured as PTC2 */
+    PORT_SetPinMux(BOARD_INITPINS_HD_COL5_PORT, BOARD_INITPINS_HD_COL5_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC3 (pin 20) is configured as PTC3 */
+    PORT_SetPinMux(BOARD_INITPINS_HD_COL4_PORT, BOARD_INITPINS_HD_COL4_PIN, kPORT_MuxAsGpio);
 
     /* PORTE0 (pin 60) is configured as PTE0 */
     PORT_SetPinMux(BOARD_INITPINS_HD_ROW4_PORT, BOARD_INITPINS_HD_ROW4_PIN, kPORT_MuxAsGpio);
