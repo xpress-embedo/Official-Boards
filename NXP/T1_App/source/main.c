@@ -17,6 +17,7 @@
 #include "fsl_debug_console.h"
 /* TODO: insert other include files here. */
 #include "main.h"
+#include "display_mng.h"
 /* TODO: insert other definitions and declarations here. */
 
 
@@ -50,6 +51,7 @@ int main(void)
   BOARD_InitBootPeripherals();
 
   SysTick_Init();
+  Display_Init();
 
   temp_time = Millis();
   task_10ms_time = temp_time;
