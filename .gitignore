@@ -1,0 +1,7 @@
+# Sublime Project Files
+*.sublime-project
+*.sublime-workspace
+
+# NXP MCUXpresso IDE related Files
+/NXP/.mcuxpressoide_packages_support/
+NXP/.metadata/
