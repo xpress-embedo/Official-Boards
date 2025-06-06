@@ -99,7 +99,7 @@ static uint8_t row_num = 0;                           // used to track row no wh
 static uint8_t column_data = 0;                       // column data to be transmitted
 
 /*------------------------- Private Function Prototypes ----------------------*/
-static void_Display_Blank(void);
+static void _Display_Blank( void );
 static void _Display_Refresh( uint32_t complete_column_data );
 
 /*-------------------------- Public Function Definitions ---------------------*/
@@ -128,12 +128,107 @@ void Display_Init( void )
  _Display_Blank();
 
  // Test Code
- CLR_LINE( HD_ROW1 );
- SET_LINE( HD_COL1 );
- SET_LINE( HD_COL2 );
- SET_LINE( HD_COL3 );
- SET_LINE( HD_COL4 );
  SET_LINE( HD_COL5 );
+ CLR_LINE( HD_ROW1 );
+ CLR_LINE( HD_ROW2 );
+ CLR_LINE( HD_ROW3 );
+ CLR_LINE( HD_ROW4 );
+ CLR_LINE( HD_ROW5 );
+ CLR_LINE( HD_ROW6 );
+}
+
+void Display_Mng( void )
+{
+  uint8_t idx;
+
+  DIS_INT();
+  for( idx=0; idx<MAX_ROWS; idx++ )
+  {
+    int_display_buffer[idx] = display_buffer[idx];
+  }
+  EN_INT();
+}
+
+// This function should be called @1ms hence called from 1ms interrupt ISR
+// if this function at the rate > 1ms, let's say @10ms we will see fluctuation
+void Display_Update( void )
+{
+  uint8_t old_row_num = 0;
+
+  #define DISPLAY_UPDATE_RATE               (2u)
+  static uint8_t update_counter = 0u;
+  update_counter++;
+
+  if( update_counter >= DISPLAY_UPDATE_RATE )
+  {
+    update_counter = 0;
+
+    // Display Update Logic Starts from Here
+    old_row_num = row_num;
+    row_num += 1;
+    if( row_num >= MAX_ROWS )
+    {
+      row_num = 0;
+    }
+
+    // display all rows and columns
+    _Display_Blank();
+    // this will be used for SPI data for Shift Register and extract direct LED Data
+    _Display_Refresh( int_display_buffer[old_row_num] );
+
+    // enable row after transmitting the column data
+    switch ( old_row_num )
+    {
+      case 0: CLR_LINE( HD_ROW1 );  break;
+      case 1: CLR_LINE( HD_ROW2 );  break;
+      case 2: CLR_LINE( HD_ROW3 );  break;
+      case 3: CLR_LINE( HD_ROW4 );  break;
+      case 4: CLR_LINE( HD_ROW5 );  break;
+      case 5: CLR_LINE( HD_ROW6 );  break;
+      default:                      break;
+    }
+
+    // enable column data (not the shift register data)
+    if( column_data & 0x01 )          SET_LINE( HD_COL1 );
+    if( column_data & 0x02 )          SET_LINE( HD_COL2 );
+    if( column_data & 0x03 )          SET_LINE( HD_COL3 );
+    if( column_data & 0x04 )          SET_LINE( HD_COL4 );
+    if( column_data & 0x05 )          SET_LINE( HD_COL5 );
+
+    // Display Update Logic Ends Here
+  }
+}
+
+void Display_SetKeyLed( uint8_t key_idx, uint8_t led_idx )
+{
+  uint32_t temp_row, temp_col;
+
+  // function should return if invalid led_idx or key_idx is provided
+  if( led_idx >= TOTAL_NUM_LEDS_PER_KEY )
+    return;
+  if( key_idx >= TOTAL_NUM_SW_LEDS )
+    return;
+
+  temp_row = TAB_LED_KEY_STATUS_ROW[key_idx][led_idx];
+  temp_col = TAB_LED_KEY_STATUS_COL[key_idx][led_idx];
+
+  display_buffer[ temp_row ] |= (0x01 << temp_col);
+}
+
+void Display_ClearKeyLed( uint8_t key_idx, uint8_t led_idx )
+{
+  uint32_t temp_row, temp_col;
+
+  // function should return if invalid led_idx or key_idx is provided
+  if( led_idx >= TOTAL_NUM_LEDS_PER_KEY )
+    return;
+  if( key_idx >= TOTAL_NUM_SW_LEDS )
+    return;
+
+  temp_row = TAB_LED_KEY_STATUS_ROW[key_idx][led_idx];
+  temp_col = TAB_LED_KEY_STATUS_COL[key_idx][led_idx];
+
+  display_buffer[ temp_row ] &= ~(0x01 << temp_col);
 }
 
 void Display_OutLine( GPIO_Type *gpio, PORT_Type *port, uint32_t pin )
@@ -148,7 +243,7 @@ void Display_OutLine( GPIO_Type *gpio, PORT_Type *port, uint32_t pin )
 }
 
 /*------------------------- Private Function Definitions ---------------------*/
-void _Display_Blank( void )
+static void _Display_Blank( void )
 {
   SET_LINE( HD_ROW1 );
   SET_LINE( HD_ROW2 );
@@ -162,5 +257,19 @@ void _Display_Blank( void )
   CLR_LINE( HD_COL3 );
   CLR_LINE( HD_COL4 );
   CLR_LINE( HD_COL5 );
+}
+
+static void _Display_Refresh( uint32_t complete_column_data )
+{
+  // uint16_t spi_data;
+
+  // save data in column_data variable which needs to driven directly
+  // 0x1F is used because we have only 5 columns which are driven directly
+  column_data = (complete_column_data & 0x1F);
+
+  // spi_data = ((complete_column_data & 0x001FFFE0) >> 5u);
+
+  // SPI send to shift registers needs to be updated (todo)
+  // LedDriver_Write(spi_data);
 }
 

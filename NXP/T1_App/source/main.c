@@ -28,6 +28,10 @@
 #define TASK_1_SEC                                    (1000u)
 #define TASK_10_SEC                                   (10000u)
 
+// This macro allow helper variables to turn on and off the LEDs, comment this
+// macro to disable the helper variables and function, and save some memory space
+#define SIMULATE_LED_ON_OFF
+
 /*--------------------------- Private Variables ------------------------------*/
 static volatile uint32_t milliseconds = 0;
 static uint32_t task_10ms_time;
@@ -35,8 +39,17 @@ static uint32_t task_100ms_time;
 static uint32_t task_1sec_time;
 static uint32_t task_10sec_time;
 
+#ifdef SIMULATE_LED_ON_OFF
+static volatile uint8_t set_clear = 0u;
+static volatile uint8_t custom_key_idx = TOTAL_NUM_SW_LEDS;
+static volatile uint8_t custom_led_idx = TOTAL_NUM_LEDS_PER_KEY;
+#endif
+
 /*------------------------- Private Function Prototypes ----------------------*/
 static void SysTick_Init( void );
+#ifdef SIMULATE_LED_ON_OFF
+static void Simulate_LedOnOff( void );
+#endif
 
 /*
  * @brief   Application entry point.
@@ -65,6 +78,7 @@ int main(void)
   // 10 ms task
   if( temp_time - task_10ms_time >= TASK_10_MSEC )
   {
+    Display_Mng();
     task_10ms_time = temp_time;
   }
 
@@ -72,6 +86,9 @@ int main(void)
   if( temp_time - task_100ms_time >= TASK_100_MSEC )
   {
     task_100ms_time = temp_time;
+    #ifdef SIMULATE_LED_ON_OFF
+    Simulate_LedOnOff();
+    #endif
   }
 
   // 1 sec task
@@ -95,6 +112,7 @@ void SysTick_Handler( void )
   DIS_INT();
   milliseconds++;
   EN_INT();
+  Display_Update();
 }
 
 uint32_t Millis( void )
@@ -115,3 +133,23 @@ static void SysTick_Init( void )
     while(1);
   }
 }
+
+#ifdef SIMULATE_LED_ON_OFF
+static void Simulate_LedOnOff( void )
+{
+  if( set_clear == 1 )
+  {
+    set_clear = 0;
+    Display_SetKeyLed(custom_key_idx, custom_led_idx);
+    custom_key_idx = TOTAL_NUM_SW_LEDS;
+    custom_led_idx = TOTAL_NUM_LEDS_PER_KEY;
+  }
+  else if( set_clear == 2 )
+  {
+    set_clear = 0;
+    Display_ClearKeyLed(custom_key_idx, custom_led_idx);
+    custom_key_idx = TOTAL_NUM_SW_LEDS;
+    custom_led_idx = TOTAL_NUM_LEDS_PER_KEY;
+  }
+}
+#endif

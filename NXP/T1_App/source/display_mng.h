@@ -85,6 +85,8 @@
 void Display_Init( void );
 void Display_Mng( void );
 void Display_Update( void );
+void Display_SetKeyLed( uint8_t key_idx, uint8_t led_idx );
+void Display_ClearKeyLed( uint8_t key_idx, uint8_t led_idx );
 void Display_OutLine( GPIO_Type *gpio, PORT_Type *port, uint32_t pin );
 
 #endif /* DISPLAY_MNG_H_ */
