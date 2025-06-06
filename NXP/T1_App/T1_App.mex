@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="MKE17Z256xxx7" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_17 http://mcuxpresso.nxp.com/XSD/mex_configuration_17.xsd" uuid="ea631e19-6df6-48b5-88bb-c7b0b65ebcfb" version="17" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_17" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MKE17Z256xxx7</processor>
+      <package>MKE17Z256VLH7</package>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores selected="core0">
+         <core name="Cortex-M0P" id="core0" description="M0P core"/>
+      </cores>
+      <description>Configuration imported from T1_App</description>
+   </common>
+   <preferences>
+      <validate_boot_init_only>true</validate_boot_init_only>
+      <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
+      <update_include_paths>true</update_include_paths>
+      <generate_registers_defines>false</generate_registers_defines>
+   </preferences>
+   <tools>
+      <pins name="Pins" version="17.0" enabled="true" update_project_code="true">
+         <generated_project_files>
+            <file path="board/pin_mux.c" update_enabled="true"/>
+            <file path="board/pin_mux.h" update_enabled="true"/>
+         </generated_project_files>
+         <pins_profile>
+            <processor_version>24.12.10</processor_version>
+            <pin_labels>
+               <pin_label pin_num="53" pin_signal="TSI0_CH0/PTE6/LPSPI0_PCS2/LPUART1_RTS" label="HD_ROW1" identifier="HD_ROW1"/>
+               <pin_label pin_num="54" pin_signal="TSI0_CH1/PTE2/LPSPI0_SOUT/LPTMR0_ALT3/PWT_IN3/LPUART1_CTS" label="HD_ROW2" identifier="HD_ROW2"/>
+               <pin_label pin_num="55" pin_signal="TSI0_CH2/PTA13/LPUART0_RX" label="HD_ROW3" identifier="HD_ROW3"/>
+               <pin_label pin_num="60" pin_signal="TSI0_CH7/PTE0/LPSPI0_SCK/TCLK1" label="HD_ROW4" identifier="HD_ROW3;HD_ROW4"/>
+               <pin_label pin_num="58" pin_signal="TSI0_CH5/PTA10/LPUART0_TX/FXIO_D0" label="HD_ROW5" identifier="HD_ROW5"/>
+               <pin_label pin_num="59" pin_signal="TSI0_CH6/PTE1/LPSPI0_SIN/LPI2C0_HREQ" label="HD_ROW6" identifier="HD_ROW6"/>
+            </pin_labels>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.</description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <coreID>core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.gpio" description="Pins initialization requires the GPIO Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="GPIOE" signal="GPIO, 6" pin_num="53" pin_signal="TSI0_CH0/PTE6/LPSPI0_PCS2/LPUART1_RTS">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIOE" signal="GPIO, 2" pin_num="54" pin_signal="TSI0_CH1/PTE2/LPSPI0_SOUT/LPTMR0_ALT3/PWT_IN3/LPUART1_CTS">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIOA" signal="GPIO, 13" pin_num="55" pin_signal="TSI0_CH2/PTA13/LPUART0_RX">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIOE" signal="GPIO, 0" pin_num="60" pin_signal="TSI0_CH7/PTE0/LPSPI0_SCK/TCLK1">
+                     <pin_features>
+                        <pin_feature name="identifier" value="HD_ROW4"/>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIOA" signal="GPIO, 10" pin_num="58" pin_signal="TSI0_CH5/PTA10/LPUART0_TX/FXIO_D0">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="GPIOE" signal="GPIO, 1" pin_num="59" pin_signal="TSI0_CH6/PTE1/LPSPI0_SIN/LPI2C0_HREQ">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                        <pin_feature name="gpio_init_state" value="true"/>
+                     </pin_features>
+                  </pin>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="15.0" enabled="true" update_project_code="true">
+         <generated_project_files>
+            <file path="board/clock_config.c" update_enabled="true"/>
+            <file path="board/clock_config.h" update_enabled="true"/>
+         </generated_project_files>
+         <clocks_profile>
+            <processor_version>24.12.10</processor_version>
+         </clocks_profile>
+         <clock_configurations>
+            <clock_configuration name="BOARD_BootClockRUN" id_prefix="" prefix_user_defined="false">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks:BOARD_BootClockRUN">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <clock_sources/>
+               <clock_outputs>
+                  <clock_output id="Bus_clock.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Core_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Flash_clock.outFreq" value="24 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPO_clock.outFreq" value="128 kHz" locked="false" accuracy=""/>
+                  <clock_output id="System_clock.outFreq" value="48 MHz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings>
+                  <setting id="SCG_SIRCCSR_SIRCEN_CFG" value="Disabled" locked="false"/>
+                  <setting id="SCG_SIRCCSR_SIRCLPEN_CFG" value="Disabled" locked="false"/>
+               </clock_settings>
+               <called_from_default_init>true</called_from_default_init>
+            </clock_configuration>
+         </clock_configurations>
+      </clocks>
+      <dcdx name="DCDx" version="4.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <dcdx_profile>
+            <processor_version>N/A</processor_version>
+         </dcdx_profile>
+         <dcdx_configurations/>
+      </dcdx>
+      <periphs name="Peripherals" version="15.0" enabled="true" update_project_code="true">
+         <generated_project_files>
+            <file path="board/peripherals.c" update_enabled="true"/>
+            <file path="board/peripherals.h" update_enabled="true"/>
+         </generated_project_files>
+         <peripherals_profile>
+            <processor_version>24.12.10</processor_version>
+         </peripherals_profile>
+         <functional_groups>
+            <functional_group name="BOARD_InitPeripherals" uuid="0abe96c4-e8fb-4c4d-839b-5b3255c5ceca" called_from_default_init="true" id_prefix="" core="core0">
+               <description></description>
+               <options/>
+               <dependencies/>
+               <instances>
+                  <instance name="NVIC" uuid="b665959c-a506-482b-bbaa-d961cfa69449" type="nvic" type_id="nvic" mode="general" peripheral="NVIC" enabled="true" comment="" custom_name_enabled="false" editing_lock="false">
+                     <config_set name="nvic">
+                        <array name="interrupt_table"/>
+                        <array name="interrupts"/>
+                     </config_set>
+                  </instance>
+               </instances>
+            </functional_group>
+         </functional_groups>
+         <components>
+            <component name="system" uuid="bdbd0235-85b8-4341-a6f9-e806f646bed6" type_id="system_54b53072540eeeb8f8e9343e71f28176">
+               <config_set_global name="global_system_definitions">
+                  <setting name="user_definitions" value=""/>
+                  <setting name="user_includes" value=""/>
+                  <setting name="global_init" value=""/>
+               </config_set_global>
+            </component>
+            <component name="uart_cmsis_common" uuid="2e3ad383-20e7-494e-8dad-bd6b0a6c23de" type_id="uart_cmsis_common">
+               <config_set_global name="global_USART_CMSIS_common" quick_selection="default"/>
+            </component>
+            <component name="msg" uuid="3a146ee9-029f-45ce-b3b9-7ca0ba617216" type_id="msg">
+               <config_set_global name="global_messages"/>
+            </component>
+            <component name="gpio_adapter_common" uuid="6604923b-c4b0-4f8c-9cf5-bc96df68cbf9" type_id="gpio_adapter_common">
+               <config_set_global name="global_gpio_adapter_common" quick_selection="default"/>
+            </component>
+            <component name="generic_uart" uuid="d10896b4-d2be-45d7-a929-3fe6bc8854e5" type_id="generic_uart">
+               <config_set_global name="global_uart"/>
+            </component>
+            <component name="generic_enet" uuid="0e34c965-61fe-4743-9d96-885b511b47d9" type_id="generic_enet">
+               <config_set_global name="global_enet"/>
+            </component>
+            <component name="generic_can" uuid="5591302a-32d7-4be1-b19d-1785240451b3" type_id="generic_can">
+               <config_set_global name="global_can"/>
+            </component>
+         </components>
+      </periphs>
+      <tee name="TEE" version="8.0" enabled="false" update_project_code="true">
+         <generated_project_files/>
+         <tee_profile>
+            <processor_version>N/A</processor_version>
+         </tee_profile>
+      </tee>
+   </tools>
+</configuration>
