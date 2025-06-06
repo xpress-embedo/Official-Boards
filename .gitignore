@@ -4,4 +4,4 @@
 
 # NXP MCUXpresso IDE related Files
 /NXP/.mcuxpressoide_packages_support/
-NXP/.metadata/
+/NXP/.metadata/
