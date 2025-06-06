@@ -18,6 +18,7 @@
 /* TODO: insert other include files here. */
 #include "main.h"
 #include "display_mng.h"
+#include "debug_mng.h"
 /* TODO: insert other definitions and declarations here. */
 
 
@@ -63,6 +64,9 @@ int main(void)
   BOARD_InitBootClocks();
   BOARD_InitBootPeripherals();
 
+  DBG_INIT();
+  DBG_PRINTF_GREEN("Program Starting\n");
+
   SysTick_Init();
   Display_Init();
 
@@ -73,34 +77,37 @@ int main(void)
   task_10sec_time = temp_time;
 
   while(1)
-
-  temp_time = Millis();
-  // 10 ms task
-  if( temp_time - task_10ms_time >= TASK_10_MSEC )
   {
-    Display_Mng();
-    task_10ms_time = temp_time;
-  }
+    temp_time = Millis();
+    // 10 ms task
+    if( temp_time - task_10ms_time >= TASK_10_MSEC )
+    {
+      task_10ms_time = temp_time;
+      Display_Mng();
+    }
 
-  // 100 ms task
-  if( temp_time - task_100ms_time >= TASK_100_MSEC )
-  {
-    task_100ms_time = temp_time;
-    #ifdef SIMULATE_LED_ON_OFF
-    Simulate_LedOnOff();
-    #endif
-  }
+    // 100 ms task
+    if( temp_time - task_100ms_time >= TASK_100_MSEC )
+    {
+      task_100ms_time = temp_time;
+      #ifdef SIMULATE_LED_ON_OFF
+      Simulate_LedOnOff();
+      #endif
+    }
 
-  // 1 sec task
-  if( temp_time - task_1sec_time >= TASK_1_SEC )
-  {
-    task_1sec_time = temp_time;
-  }
+    // 1 sec task
+    if( temp_time - task_1sec_time >= TASK_1_SEC )
+    {
+      task_1sec_time = temp_time;
+      DBG_PRINTF_GREEN("1sec Task Executing\n");
+    }
 
-  // 10 sec task
-  if( temp_time - task_10sec_time >= TASK_10_SEC )
-  {
-    task_10sec_time = temp_time;
+    // 10 sec task
+    if( temp_time - task_10sec_time >= TASK_10_SEC )
+    {
+      task_10sec_time = temp_time;
+      DBG_PRINTF_MAGENTA("10sec Task Executing\n");
+    }
   }
 
   return 0 ;
@@ -130,6 +137,7 @@ static void SysTick_Init( void )
   if( SysTick_Config( SystemCoreClock/SYSTICK_TIMER_PERIOD_MS) )
   {
     // Problem with SysTick Initialization
+    DBG_PRINTF_RED("SysTick_Init: Failed\n");
     while(1);
   }
 }
