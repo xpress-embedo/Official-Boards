@@ -33,9 +33,13 @@
 // macro to disable the helper variables and function, and save some memory space
 #define SIMULATE_LED_ON_OFF
 // comment this line to switch off all switch keys LEDs animation
-#define KEY_LED_ON_OFF_ANIMATION
+// #define KEY_LED_ON_OFF_ANIMATION
 // comment this to switch off the assist LEDs animation
-#define ASSIST_LED_ON_OFF_ANIMATION
+// #define ASSIST_LED_ON_OFF_ANIMATION
+// comment below line to disable the zone seven segment on-off animation
+#define ZONE_7SEGMENT_ANIMATION
+// comment below line to display the timer seven segment on-off animation
+#define TIMER_7SEGMENT_ANIMATION
 
 /*--------------------------- Private Variables ------------------------------*/
 static volatile uint32_t milliseconds = 0;
@@ -62,6 +66,12 @@ static void Simulate_KeyLed_Animation( void );
 #endif
 #ifdef ASSIST_LED_ON_OFF_ANIMATION
 static void Simulate_Assist_Led_Animation( void );
+#endif
+#ifdef ZONE_7SEGMENT_ANIMATION
+static void Simulate_ZoneSevenSegment_Animation( void );
+#endif
+#ifdef TIMER_7SEGMENT_ANIMATION
+static void Simulate_TimerSevenSegment_Animation( void );
 #endif
 
 /*
@@ -110,6 +120,12 @@ int main(void)
       #endif
       #ifdef ASSIST_LED_ON_OFF_ANIMATION
       Simulate_Assist_Led_Animation();
+      #endif
+      #ifdef ZONE_7SEGMENT_ANIMATION
+      Simulate_ZoneSevenSegment_Animation();
+      #endif
+      #ifdef TIMER_7SEGMENT_ANIMATION
+      Simulate_TimerSevenSegment_Animation();
       #endif
     }
 
@@ -256,6 +272,49 @@ static void Simulate_Assist_Led_Animation( void )
       assist_led = 0;
       on_off = 0;
     }
+  }
+}
+#endif
+
+#ifdef ZONE_7SEGMENT_ANIMATION
+static void Simulate_ZoneSevenSegment_Animation( void )
+{
+  // this is called inside 100ms timer flag, we need to slow a bit, so that we 
+  // can see things i.e. characters properly
+  static seg7_digit_e segment_index = 0;
+  static uint8_t timer_counter = 0;
+  timer_counter++;
+
+  if( timer_counter > 2 )
+  {
+    timer_counter = 0;
+    Display_SetZone7Segment( ZONE_1, segment_index );
+    Display_SetZone7Segment( ZONE_2, segment_index );
+    Display_SetZone7Segment( ZONE_3, segment_index );
+    Display_SetZone7Segment( ZONE_4, segment_index );
+    segment_index++;
+    if( segment_index >= SEG7_DIG_TAB_MAX )
+    {
+      segment_index = 0;
+    }
+  }
+}
+#endif
+#ifdef TIMER_7SEGMENT_ANIMATION
+static void Simulate_TimerSevenSegment_Animation( void )
+{
+  uint32_t temp;
+  static uint8_t timer_counter = 0;
+  timer_counter++;
+
+  if( timer_counter > 5 )
+  {
+    timer_counter = 0;
+    temp = Millis();
+    // temp time is in milliseconds, hence dividing by 1000 to convert to seconds
+    // adding 8 minutes 50 seconds just to check the transition from minutes to hours
+    // check function content for more information
+    Display_SetTime( (temp/1000u) + (8u*60u) + 50u );
   }
 }
 #endif

@@ -44,6 +44,55 @@
 #define HD_COL20_IDX                              (19u)
 #define HD_COL21_IDX                              (20u)
 
+// Mask Definitions for 7 segments
+/*
+        A
+      F   B
+        G 
+      E   C
+        D
+*/
+// Basic 7-segment masks
+#define SEG7_A_MSK                                (0x01)
+#define SEG7_B_MSK                                (0x02)
+#define SEG7_C_MSK                                (0x04)
+#define SEG7_D_MSK                                (0x08)
+#define SEG7_E_MSK                                (0x10)
+#define SEG7_F_MSK                                (0x20)
+#define SEG7_G_MSK                                (0x40)
+
+// Character and Symbol Mask Definition for 7 segment
+#define SEG7_DIG_NONE_MSK   ( 0)
+#define SEG7_DIG_0_MSK      ( SEG7_A_MSK | SEG7_B_MSK | SEG7_C_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_F_MSK )
+#define SEG7_DIG_1_MSK      ( SEG7_B_MSK | SEG7_C_MSK )
+#define SEG7_DIG_2_MSK      ( SEG7_A_MSK | SEG7_B_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_G_MSK )
+#define SEG7_DIG_3_MSK      ( SEG7_A_MSK | SEG7_B_MSK | SEG7_C_MSK | SEG7_D_MSK | SEG7_G_MSK )
+#define SEG7_DIG_4_MSK      ( SEG7_B_MSK | SEG7_C_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_5_MSK      ( SEG7_A_MSK | SEG7_C_MSK | SEG7_D_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_6_MSK      ( SEG7_A_MSK | SEG7_C_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_7_MSK      ( SEG7_A_MSK | SEG7_B_MSK | SEG7_C_MSK )
+#define SEG7_DIG_8_MSK      ( SEG7_A_MSK | SEG7_B_MSK | SEG7_C_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_9_MSK      ( SEG7_A_MSK | SEG7_B_MSK | SEG7_C_MSK | SEG7_D_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_A_MSK      ( SEG7_A_MSK | SEG7_B_MSK | SEG7_C_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_b_MSK      ( SEG7_C_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_c_MSK      ( SEG7_D_MSK | SEG7_E_MSK | SEG7_G_MSK )
+#define SEG7_DIG_C_MSK      ( SEG7_A_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_F_MSK )
+#define SEG7_DIG_d_MSK      ( SEG7_B_MSK | SEG7_C_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_G_MSK )
+#define SEG7_DIG_E_MSK      ( SEG7_A_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_F_MSK      ( SEG7_A_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_h_MSK      ( SEG7_C_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_H_MSK      ( SEG7_B_MSK | SEG7_C_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_I_MSK      ( SEG7_DIG_1_MSK )
+#define SEG7_DIG_L_MSK      ( SEG7_D_MSK | SEG7_E_MSK | SEG7_F_MSK )
+#define SEG7_DIG_n_MSK      ( SEG7_C_MSK | SEG7_E_MSK | SEG7_G_MSK )
+#define SEG7_DIG_o_MSK      ( SEG7_C_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_G_MSK )
+#define SEG7_DIG_P_MSK      ( SEG7_A_MSK | SEG7_B_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_r_MSK      ( SEG7_E_MSK | SEG7_G_MSK )
+#define SEG7_DIG_S_MSK      ( SEG7_DIG_5_MSK )
+#define SEG7_DIG_t_MSK      ( SEG7_D_MSK | SEG7_E_MSK | SEG7_F_MSK | SEG7_G_MSK )
+#define SEG7_DIG_u_MSK      ( SEG7_C_MSK | SEG7_D_MSK | SEG7_E_MSK )
+#define SEG7_DIG_U_MSK      ( SEG7_B_MSK | SEG7_C_MSK | SEG7_D_MSK | SEG7_E_MSK | SEG7_F_MSK )
+
 /*--------------------------- Private Variables ------------------------------*/
 static const uint8_t TAB_LED_KEY_STATUS_ROW[TOTAL_NUM_SW_LEDS][TOTAL_NUM_LEDS_PER_KEY] = 
 {
@@ -126,7 +175,74 @@ static const uint8_t TAB_LED_ASSIST_COL[TOTAL_NUM_ASSIST_LEDS] =
   HD_COL01_IDX,       // LED ASSIST HOOD AUTO         (SY3-3)
 };
 
+static const uint8_t TAB_7SEG_ZONE_ROW[TOTAL_NUM_ZONE_SEGMENTS][TOTAL_NUM_LEDS_PER_ZONE] = 
+{
+  /*Led-1(A)      Led-2(B)      Led-3(C)      Led-4(D)      Led-5(E)      Led-6(F)      Led-7(G)  */
+  { HD_ROW5_IDX,  HD_ROW5_IDX,  HD_ROW5_IDX,  HD_ROW5_IDX,  HD_ROW6_IDX,  HD_ROW6_IDX,  HD_ROW6_IDX   },  // ZONE-1
+  { HD_ROW6_IDX,  HD_ROW6_IDX,  HD_ROW6_IDX,  HD_ROW6_IDX,  HD_ROW5_IDX,  HD_ROW5_IDX,  HD_ROW5_IDX   },  // ZONE-2
+  { HD_ROW5_IDX,  HD_ROW5_IDX,  HD_ROW5_IDX,  HD_ROW5_IDX,  HD_ROW6_IDX,  HD_ROW6_IDX,  HD_ROW6_IDX   },  // ZONE-3
+  { HD_ROW6_IDX,  HD_ROW6_IDX,  HD_ROW6_IDX,  HD_ROW6_IDX,  HD_ROW5_IDX,  HD_ROW5_IDX,  HD_ROW5_IDX   },  // ZONE-4
+};
 
+static const uint8_t TAB_7SEG_ZONE_COL[TOTAL_NUM_ZONE_SEGMENTS][TOTAL_NUM_LEDS_PER_ZONE] = 
+{
+  /*Led-1(A)      Led-2(B)      Led-3(C)      Led-4(D)      Led-5(E)      Led-6(F)      Led-7(G)  */
+  { HD_COL08_IDX, HD_COL09_IDX, HD_COL10_IDX, HD_COL11_IDX, HD_COL08_IDX, HD_COL09_IDX, HD_COL10_IDX  },  // ZONE-1
+  { HD_COL11_IDX, HD_COL12_IDX, HD_COL13_IDX, HD_COL14_IDX, HD_COL12_IDX, HD_COL13_IDX, HD_COL14_IDX  },  // ZONE-2
+  { HD_COL15_IDX, HD_COL16_IDX, HD_COL17_IDX, HD_COL18_IDX, HD_COL15_IDX, HD_COL16_IDX, HD_COL17_IDX  },  // ZONE-3
+  { HD_COL18_IDX, HD_COL19_IDX, HD_COL20_IDX, HD_COL21_IDX, HD_COL19_IDX, HD_COL20_IDX, HD_COL21_IDX  },  // ZONE-4
+};
+
+static const uint8_t TAB_7SEG_TIMER_ROW[TOTAL_NUM_TIMER_SEGMENTS][TOTAL_NUM_LEDS_PER_TIMER] = 
+{
+  /*Led-1(A)      Led-2(B)      Led-3(C)      Led-4(D)      Led-5(E)      Led-6(F)      Led-7(G)  */
+  { HD_ROW2_IDX,  HD_ROW3_IDX,  HD_ROW4_IDX,  HD_ROW1_IDX,  HD_ROW2_IDX,  HD_ROW3_IDX,  HD_ROW4_IDX   },  // T1
+  { HD_ROW2_IDX,  HD_ROW3_IDX,  HD_ROW4_IDX,  HD_ROW1_IDX,  HD_ROW2_IDX,  HD_ROW3_IDX,  HD_ROW4_IDX   },  // T2
+  { HD_ROW2_IDX,  HD_ROW3_IDX,  HD_ROW4_IDX,  HD_ROW1_IDX,  HD_ROW2_IDX,  HD_ROW3_IDX,  HD_ROW4_IDX   },  // T3
+};
+
+static const uint8_t TAB_7SEG_TIMER_COL[TOTAL_NUM_TIMER_SEGMENTS][TOTAL_NUM_LEDS_PER_TIMER] = 
+{
+  /*Led-1(A)      Led-2(B)      Led-3(C)      Led-4(D)      Led-5(E)      Led-6(F)      Led-7(G)  */
+  { HD_COL16_IDX, HD_COL16_IDX, HD_COL16_IDX, HD_COL17_IDX, HD_COL17_IDX, HD_COL17_IDX, HD_COL17_IDX  },  // T1
+  { HD_COL18_IDX, HD_COL18_IDX, HD_COL18_IDX, HD_COL19_IDX, HD_COL19_IDX, HD_COL19_IDX, HD_COL19_IDX  },  // T2
+  { HD_COL20_IDX, HD_COL20_IDX, HD_COL20_IDX, HD_COL21_IDX, HD_COL21_IDX, HD_COL21_IDX, HD_COL21_IDX  },  // T3
+};
+
+// Seven Segment Character/Symbol Table
+static const char TAB_CHAR_MSK[SEG7_DIG_TAB_MAX] = 
+{
+    SEG7_DIG_NONE_MSK,
+    SEG7_DIG_0_MSK,
+    SEG7_DIG_1_MSK,
+    SEG7_DIG_2_MSK,
+    SEG7_DIG_3_MSK,
+    SEG7_DIG_4_MSK,
+    SEG7_DIG_5_MSK,
+    SEG7_DIG_6_MSK,
+    SEG7_DIG_7_MSK,
+    SEG7_DIG_8_MSK,
+    SEG7_DIG_9_MSK,
+    SEG7_DIG_A_MSK,
+    SEG7_DIG_b_MSK,
+    SEG7_DIG_c_MSK,
+    SEG7_DIG_C_MSK,
+    SEG7_DIG_d_MSK,
+    SEG7_DIG_E_MSK,
+    SEG7_DIG_F_MSK,
+    SEG7_DIG_h_MSK,
+    SEG7_DIG_H_MSK,
+    SEG7_DIG_I_MSK,
+    SEG7_DIG_L_MSK,
+    SEG7_DIG_n_MSK,
+    SEG7_DIG_o_MSK,
+    SEG7_DIG_P_MSK,
+    SEG7_DIG_r_MSK,
+    SEG7_DIG_S_MSK,
+    SEG7_DIG_t_MSK,
+    SEG7_DIG_u_MSK,
+    SEG7_DIG_U_MSK,
+};
 
 // This buffer contains the data which needs to be updated on display
 // Here important thing is only 5 columns are used directly rest of them are
@@ -331,6 +447,150 @@ void Display_ClearAssistLed( led_assist_map_e assist_led )
   temp_col = TAB_LED_ASSIST_COL[assist_led];
 
   display_buffer[ temp_row ] &= ~(0x01 << temp_col);
+}
+
+void Display_SetZone7Segment( uint8_t zone_idx, seg7_digit_e char_idx )
+{
+  uint8_t segment_mask;
+  uint8_t segment;
+  uint32_t temp_row, temp_col;
+
+  // checking for valid values (boundary conditions)
+  if( ( zone_idx < ZONE_MAX ) && (char_idx < SEG7_DIG_TAB_MAX) )
+  {
+    segment_mask = TAB_CHAR_MSK[char_idx];
+    for( segment=0; segment<7; segment++ )
+    {
+      temp_row = TAB_7SEG_ZONE_ROW[zone_idx][segment];
+      temp_col = TAB_7SEG_ZONE_COL[zone_idx][segment];
+      if( segment_mask & (0x01<<segment) )
+      {
+        display_buffer[temp_row] |= (0x01 << temp_col);
+      }
+      else
+      {
+        display_buffer[temp_row] &= ~(0x01 << temp_col);
+      }
+    }
+  }
+}
+
+void Display_SetTimer7Segment( uint8_t timer_idx, seg7_digit_e char_idx )
+{
+  uint8_t segment_mask;
+  uint8_t segment;
+  uint32_t temp_row, temp_col;
+
+  // checking for valid values (boundary conditions)
+  if( ( timer_idx < TIMER_IDX_MAX ) && (char_idx < SEG7_DIG_TAB_MAX) )
+  {
+    segment_mask = TAB_CHAR_MSK[char_idx];
+    for( segment=0; segment<7; segment++ )
+    {
+      temp_row = TAB_7SEG_TIMER_ROW[timer_idx][segment];
+      temp_col = TAB_7SEG_TIMER_COL[timer_idx][segment];
+      if( segment_mask & (0x01<<segment) )
+      {
+        display_buffer[temp_row] |= (0x01 << temp_col);
+      }
+      else
+      {
+        display_buffer[temp_row] &= ~(0x01 << temp_col);
+      }
+    }
+  }
+}
+
+void Display_SetTime( uint32_t seconds )
+{
+  /*
+  * we have three seven segments, and we have the possibility to either display
+  * hour and minutes, or minutes and seconds
+  * when displaying hours and minutes, the maximum value that can be displayed 
+  * is 9 hours 59 minutes
+  * Similarly when displaying minutes and seconds, the maximum value that can
+  * be reached is 9 minutes and 59 seconds.
+  * This function takes input as seconds, when seconds is less than or equal to
+  * 9 minutes 59 seconds, then we display minutes and seconds
+  * If greater than 9 minutes 59 seconds, we display in hours and minutes
+  */
+  #define SECS_IN_MIN                                 (60u)   // seconds in 1 minute
+  #define MINS_IN_HOUR                                (60u)   // minutes in 1 hour
+  #define THRESHOLD_TIME_MIN_DISP                     (9u*SECS_IN_MIN + 59u)    // threshold time is 9 minutes 59 seconds
+ 
+  static uint8_t col_tog = false;
+  uint8_t true_hours = 0;
+  uint8_t true_mins = 0;
+  uint8_t true_seconds = 0;
+  uint8_t t1_char_idx, t2_char_idx, t3_char_idx;
+
+  // colon led should toggle twice in a second, this is handled by calling this
+  // function from every 500ms, and is handled in main file
+  if( col_tog )
+  {
+    Display_ClearAssistLed( LED_ASSIST_COLON );
+    col_tog = false;
+  }
+  else
+  {
+    Display_SetAssistLed( LED_ASSIST_COLON );
+    col_tog = true;
+  }
+
+  if( seconds <= THRESHOLD_TIME_MIN_DISP )
+  {
+    // we display in minutes and seconds
+    true_seconds = (uint8_t)(seconds % SECS_IN_MIN);
+    true_mins = (uint8_t) (seconds / SECS_IN_MIN);
+    
+    // now displaying this data on timer segments
+    // seconds can have maximum two digits i.e. from 0 to 59, and here we need
+    // to separate these digits, and then display on t3 and t2, t3 will display
+    // the one's part and t2 will display then ten's part
+    t3_char_idx = (true_seconds % 10u);     // extracting one's part
+    // here added one or SEG7_DIG_0_TAB_IDX because at 0th index we have value
+    // to display nothing, hence we have to increment the part to display
+    t3_char_idx = t3_char_idx + SEG7_DIG_0_TAB_IDX;
+    Display_SetTimer7Segment( TIMER_3_IDX, t3_char_idx );
+    
+    t2_char_idx = (true_seconds / 10u);     // extracting ten's part
+    // here added one or SEG7_DIG_0_TAB_IDX because at 0th index we have value
+    // to display nothing, hence we have to increment the part to display
+    t2_char_idx = t2_char_idx + SEG7_DIG_0_TAB_IDX;
+    Display_SetTimer7Segment( TIMER_2_IDX, t2_char_idx );
+    
+    // minutes will always remain below 9, and add 1 or SEG7_DIG_0_TAB_IDX due to
+    // the same reason
+    t1_char_idx = (true_mins + SEG7_DIG_0_TAB_IDX );
+    Display_SetTimer7Segment( TIMER_1_IDX, t1_char_idx);
+    
+    // turn on minute led and clear the hour led
+    Display_SetAssistLed( LED_ASSIST_MINUTE );
+    Display_ClearAssistLed( LED_ASSIST_HOUR );
+  }
+  else
+  {
+    uint32_t remaining_secs;
+    // we display in hours and minutes
+    true_hours = (uint8_t)( seconds/(SECS_IN_MIN*MINS_IN_HOUR) );
+    remaining_secs = (seconds%(SECS_IN_MIN*MINS_IN_HOUR) );
+    true_mins = (uint8_t) (remaining_secs / SECS_IN_MIN);
+
+    t3_char_idx = (true_mins % 10u);    // extracting one's part
+    t3_char_idx = t3_char_idx + SEG7_DIG_0_TAB_IDX;
+    Display_SetTimer7Segment( TIMER_3_IDX, t3_char_idx );
+
+    t2_char_idx = (true_mins / 10u);    // extracting ten's part
+    t2_char_idx = t2_char_idx + SEG7_DIG_0_TAB_IDX;
+    Display_SetTimer7Segment( TIMER_2_IDX, t2_char_idx );
+
+    t1_char_idx = (true_hours + SEG7_DIG_0_TAB_IDX );
+    Display_SetTimer7Segment( TIMER_1_IDX, t1_char_idx );
+
+    // turn off minute led and on the hour led
+    Display_SetAssistLed( LED_ASSIST_HOUR );
+    Display_ClearAssistLed( LED_ASSIST_MINUTE );
+  }
 }
 
 void Display_OutLine( GPIO_Type *gpio, PORT_Type *port, uint32_t pin )

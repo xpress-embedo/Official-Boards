@@ -102,6 +102,14 @@
 // Assist LEDs are special LEDs such as food sensor, wifi, filters etc....
 // On Mapping table they are illustrated as SY1, ST1, ST6, SY4, ST3, SY3 .....
 #define TOTAL_NUM_ASSIST_LEDS           (14u)
+// total 4-zones are there Zone-1, 2, 3, and 4
+#define TOTAL_NUM_ZONE_SEGMENTS         (4u)
+// one zone segment has seven LEDs
+#define TOTAL_NUM_LEDS_PER_ZONE         (7u)
+// total timer segments is 3 i.e. T1, T2 and T3
+#define TOTAL_NUM_TIMER_SEGMENTS        (3u)
+// one timer segment has seven LEDs just like zone segment has
+#define TOTAL_NUM_LEDS_PER_TIMER        (7u)
 
 // Please take sure this table is correct and matching TOTAL_NUM_ASSIST_LEDS
 // also make sure the entries in TAB LED ASSIST ROW and TAB_LED_ASSIST_COL matches
@@ -124,6 +132,62 @@ typedef enum _led_assist_map_e
   LED_ASSIST_MAX,
 } led_assist_map_e;
 
+typedef enum zone_e
+{
+  ZONE_1 = 0,
+  ZONE_FRONT_LEFT = ZONE_1,
+  ZONE_2,
+  ZONE_REAR_LEFT = ZONE_2,
+  ZONE_3,
+  ZONE_FRONT_RIGHT = ZONE_3,
+  ZONE_4,
+  ZONE_REAR_RIGHT = ZONE_4,
+  ZONE_MAX,
+} zone_e;
+
+typedef enum _timer_e
+{
+  TIMER_1_IDX = 0,
+  TIMER_2_IDX,
+  TIMER_3_IDX,
+  TIMER_IDX_MAX
+} timer_e;
+
+typedef enum _seg7_digit_e
+{
+  SEG7_DIG_NONE_TAB_IDX,
+  SEG7_DIG_0_TAB_IDX,
+  SEG7_DIG_1_TAB_IDX,
+  SEG7_DIG_2_TAB_IDX,
+  SEG7_DIG_3_TAB_IDX,
+  SEG7_DIG_4_TAB_IDX,
+  SEG7_DIG_5_TAB_IDX,
+  SEG7_DIG_6_TAB_IDX,
+  SEG7_DIG_7_TAB_IDX,
+  SEG7_DIG_8_TAB_IDX,
+  SEG7_DIG_9_TAB_IDX,
+  SEG7_DIG_A_TAB_IDX,
+  SEG7_DIG_b_TAB_IDX,
+  SEG7_DIG_c_TAB_IDX,
+  SEG7_DIG_C_TAB_IDX,
+  SEG7_DIG_d_TAB_IDX,
+  SEG7_DIG_E_TAB_IDX,
+  SEG7_DIG_F_TAB_IDX,
+  SEG7_DIG_h_TAB_IDX,
+  SEG7_DIG_H_TAB_IDX,
+  SEG7_DIG_I_TAB_IDX,
+  SEG7_DIG_L_TAB_IDX,
+  SEG7_DIG_n_TAB_IDX,
+  SEG7_DIG_o_TAB_IDX,
+  SEG7_DIG_P_TAB_IDX,
+  SEG7_DIG_r_TAB_IDX,
+  SEG7_DIG_S_TAB_IDX,
+  SEG7_DIG_t_TAB_IDX,
+  SEG7_DIG_u_TAB_IDX,
+  SEG7_DIG_U_TAB_IDX,
+  SEG7_DIG_TAB_MAX,
+} seg7_digit_e;
+
 /*-------------------------Public Function Prototypes ------------------------*/
 void Display_Init( void );
 void Display_Mng( void );
@@ -132,6 +196,9 @@ void Display_SetKeyLed( uint8_t key_idx, uint8_t led_idx );
 void Display_ClearKeyLed( uint8_t key_idx, uint8_t led_idx );
 void Display_SetAssistLed( led_assist_map_e assist_led );
 void Display_ClearAssistLed( led_assist_map_e assist_led );
+void Display_SetZone7Segment( uint8_t zone_idx, seg7_digit_e char_idx );
+void Display_SetTimer7Segment( uint8_t timer_idx, seg7_digit_e char_idx );
+void Display_SetTime( uint32_t seconds );
 void Display_OutLine( GPIO_Type *gpio, PORT_Type *port, uint32_t pin );
 
 #endif /* DISPLAY_MNG_H_ */
