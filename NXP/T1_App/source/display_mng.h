@@ -130,6 +130,8 @@ void Display_Mng( void );
 void Display_Update( void );
 void Display_SetKeyLed( uint8_t key_idx, uint8_t led_idx );
 void Display_ClearKeyLed( uint8_t key_idx, uint8_t led_idx );
+void Display_SetAssistLed( led_assist_map_e assist_led );
+void Display_ClearAssistLed( led_assist_map_e assist_led );
 void Display_OutLine( GPIO_Type *gpio, PORT_Type *port, uint32_t pin );
 
 #endif /* DISPLAY_MNG_H_ */

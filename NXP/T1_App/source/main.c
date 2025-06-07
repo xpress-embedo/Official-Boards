@@ -34,6 +34,8 @@
 #define SIMULATE_LED_ON_OFF
 // comment this line to switch off all switch keys LEDs animation
 #define KEY_LED_ON_OFF_ANIMATION
+// comment this to switch off the assist LEDs animation
+#define ASSIST_LED_ON_OFF_ANIMATION
 
 /*--------------------------- Private Variables ------------------------------*/
 static volatile uint32_t milliseconds = 0;
@@ -46,6 +48,8 @@ static uint32_t task_10sec_time;
 static volatile uint8_t set_clear = 0u;
 static volatile uint8_t custom_key_idx = TOTAL_NUM_SW_LEDS;
 static volatile uint8_t custom_led_idx = TOTAL_NUM_LEDS_PER_KEY;
+// to switch on assist led set_clear = 1, and provide the led enumeration
+static volatile uint8_t custom_assist_led = TOTAL_NUM_ASSIST_LEDS;
 #endif
 
 /*------------------------- Private Function Prototypes ----------------------*/
@@ -55,6 +59,9 @@ static void Simulate_LedOnOff( void );
 #endif
 #ifdef KEY_LED_ON_OFF_ANIMATION
 static void Simulate_KeyLed_Animation( void );
+#endif
+#ifdef ASSIST_LED_ON_OFF_ANIMATION
+static void Simulate_Assist_Led_Animation( void );
 #endif
 
 /*
@@ -100,6 +107,9 @@ int main(void)
       #endif
       #ifdef KEY_LED_ON_OFF_ANIMATION
       Simulate_KeyLed_Animation();
+      #endif
+      #ifdef ASSIST_LED_ON_OFF_ANIMATION
+      Simulate_Assist_Led_Animation();
       #endif
     }
 
@@ -157,15 +167,19 @@ static void Simulate_LedOnOff( void )
   {
     set_clear = 0;
     Display_SetKeyLed(custom_key_idx, custom_led_idx);
+    Display_SetAssistLed(custom_assist_led);
     custom_key_idx = TOTAL_NUM_SW_LEDS;
     custom_led_idx = TOTAL_NUM_LEDS_PER_KEY;
+    custom_assist_led = TOTAL_NUM_ASSIST_LEDS;
   }
   else if( set_clear == 2 )
   {
     set_clear = 0;
     Display_ClearKeyLed(custom_key_idx, custom_led_idx);
+    Display_SetAssistLed(custom_assist_led);
     custom_key_idx = TOTAL_NUM_SW_LEDS;
     custom_led_idx = TOTAL_NUM_LEDS_PER_KEY;
+    custom_assist_led = TOTAL_NUM_ASSIST_LEDS;
   }
 }
 #endif
@@ -212,6 +226,35 @@ static void Simulate_KeyLed_Animation( void )
         key_idx = 0;
         on_off = 0;
       }
+    }
+  }
+}
+#endif
+
+#ifdef ASSIST_LED_ON_OFF_ANIMATION
+static void Simulate_Assist_Led_Animation( void )
+{
+  static uint8_t on_off = 0;
+  static uint8_t assist_led = 0;
+
+  if( on_off == 0 )
+  {
+    Display_SetAssistLed(assist_led);
+    assist_led++;
+    if( assist_led >= LED_ASSIST_MAX )
+    {
+      assist_led = 0;
+      on_off = 1;
+    }
+  }
+  else if( on_off )
+  {
+    Display_ClearAssistLed(assist_led);
+    assist_led++;
+    if( assist_led >= LED_ASSIST_MAX )
+    {
+      assist_led = 0;
+      on_off = 0;
     }
   }
 }

@@ -89,6 +89,45 @@ static const uint8_t TAB_LED_KEY_STATUS_COL[TOTAL_NUM_SW_LEDS] [TOTAL_NUM_LEDS_P
     { HD_COL12_IDX,   HD_COL04_IDX,   HD_COL13_IDX },     // SW22
 };
 
+// LED_ASSIST_MAX and TOTAL_NUM_ASSIST_LEDS should be equal and can be used interchangeably
+static const uint8_t TAB_LED_ASSIST_ROW[TOTAL_NUM_ASSIST_LEDS] = 
+{
+  HD_ROW5_IDX,        // LED ASSIST_FOOD PROBE        (SY1-1)
+  HD_ROW6_IDX,        // LED ASSIST CONNECTIVITY      (SY1-2)
+  HD_ROW6_IDX,        // LED ASSIST FILTER            (SY1-3)
+  HD_ROW5_IDX,        // LED ASSIST_TIMER_Z2          (ST1-1)
+  HD_ROW6_IDX,        // LED ASSIST TIMER Z1          (ST1-2)
+  HD_ROW5_IDX,        // LED ASSIST COLON             (ST6-1)
+  HD_ROW6_IDX,        // LED ASSIST HOUR              (ST6-2)
+  HD_ROW1_IDX,        // LED ASSIST DEG CELSIUS       (SY4-1)   This led is not visible due to the light guide
+  HD_ROW5_IDX,        // LED ASSIST MIN               (SY4-2)
+  HD_ROW5_IDX,        // LED_ASSIST TIMER Z4          (ST3-1)
+  HD_ROW6_IDX,        // LED ASSIST TIMER Z3          (ST3-2)
+  HD_ROW5_IDX,        // LED ASSIST HOOD FAN          (SY3-1)
+  HD_ROW5_IDX,        // LED ASSIST HOOD BREEZE       (SY3-2)
+  HD_ROW6_IDX,        // LED_ASSIST_HOOD AUTO         (SY3-3)
+};
+
+static const uint8_t TAB_LED_ASSIST_COL[TOTAL_NUM_ASSIST_LEDS] = 
+{
+  HD_COL04_IDX,       // LED ASSIST FOOD PROBE        (SY1-1)
+  HD_COL04_IDX,       // LED ASSIST CONNECTIVITY      (SY1-2)
+  HD_COL03_IDX,       // LED ASSIST FILTER            (SY1-3)
+  HD_COL06_IDX,       // LED ASSIST TIMER Z2          (ST1-1)
+  HD_COL06_IDX,       // LED ASSIST TIMER Z1          (ST1-2)
+  HD_COL05_IDX,       // LED ASSIST COLON             (ST6-1)
+  HD_COL05_IDX,       // LED ASSIST HOUR              (ST6-2)
+  HD_COL18_IDX,       // LED ASSIST DEG CELSIUS       (SY4-1)
+  HD_COL03_IDX,       // LED ASSIST MIN               (SY4-2)
+  HD_COL07_IDX,       // LED ASSIST TIMER Z4          (ST3-1)
+  HD_COL07_IDX,       // LED ASSIST TIMER Z3          (ST3-2)
+  HD_COL01_IDX,       // LED ASSIST HOOD FAN          (SY3-1)
+  HD_COL02_IDX,       // LED ASSIST HOOD BREEZE       (SY3-2)
+  HD_COL01_IDX,       // LED ASSIST HOOD AUTO         (SY3-3)
+};
+
+
+
 // This buffer contains the data which needs to be updated on display
 // Here important thing is only 5 columns are used directly rest of them are
 // used with the help of a shift register, so two separate logic needs to be
@@ -264,6 +303,32 @@ void Display_ClearKeyLed( uint8_t key_idx, uint8_t led_idx )
 
   temp_row = TAB_LED_KEY_STATUS_ROW[key_idx][led_idx];
   temp_col = TAB_LED_KEY_STATUS_COL[key_idx][led_idx];
+
+  display_buffer[ temp_row ] &= ~(0x01 << temp_col);
+}
+
+void Display_SetAssistLed( led_assist_map_e assist_led )
+{
+  uint32_t temp_row, temp_col;
+
+  if( assist_led >= TOTAL_NUM_ASSIST_LEDS )
+    return;
+
+  temp_row = TAB_LED_ASSIST_ROW[assist_led];
+  temp_col = TAB_LED_ASSIST_COL[assist_led];
+
+  display_buffer[ temp_row ] |= (0x01 << temp_col);
+}
+
+void Display_ClearAssistLed( led_assist_map_e assist_led )
+{
+  uint32_t temp_row, temp_col;
+
+  if( assist_led >= TOTAL_NUM_ASSIST_LEDS )
+    return;
+
+  temp_row = TAB_LED_ASSIST_ROW[assist_led];
+  temp_col = TAB_LED_ASSIST_COL[assist_led];
 
   display_buffer[ temp_row ] &= ~(0x01 << temp_col);
 }
