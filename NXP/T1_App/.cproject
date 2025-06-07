@@ -112,8 +112,6 @@
 								<option id="gnu.c.compiler.option.preprocessor.preprocess.2023268322" name="Preprocess only (-E)" superClass="gnu.c.compiler.option.preprocessor.preprocess" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.preprocessor.undef.symbol.1024205397" name="Undefined symbols (-U)" superClass="gnu.c.compiler.option.preprocessor.undef.symbol" useByScannerDiscovery="false"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.853182607" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/device}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/device/periph7}&quot;"/>
@@ -126,6 +124,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/utilities/str}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/component/lists}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/utilities/debug_console}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source/RTT}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source/debug_mng}&quot;"/>
 								</option>
@@ -189,8 +189,6 @@
 								<option id="com.crt.advproject.gas.arch.568902158" name="Architecture" superClass="com.crt.advproject.gas.arch" value="com.crt.advproject.gas.target.cm0plus" valueType="enumerated"/>
 								<option id="gnu.both.asm.option.flags.crt.1561659090" name="Assembler flags" superClass="gnu.both.asm.option.flags.crt" value="-c -x assembler-with-cpp -D__REDLIB__" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.both.asm.option.include.paths.803141008" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/device}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/device/periph7}&quot;"/>
@@ -203,6 +201,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/utilities/str}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/component/lists}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/utilities/debug_console}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source/RTT}&quot;"/>
 								</option>
 								<option id="gnu.both.asm.option.warnings.nowarn.1279105680" name="Suppress warnings (-W)" superClass="gnu.both.asm.option.warnings.nowarn"/>
@@ -493,8 +493,6 @@
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.undef.symbol.92471715" name="Undefined symbols (-U)" superClass="gnu.c.compiler.option.preprocessor.undef.symbol" useByScannerDiscovery="false"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.585197992" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/device}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/device/periph7}&quot;"/>
@@ -507,6 +505,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/utilities/str}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/component/lists}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/utilities/debug_console}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 								</option>
 								<option id="gnu.c.compiler.option.include.files.2079068333" name="Include files (-include)" superClass="gnu.c.compiler.option.include.files" useByScannerDiscovery="false"/>
 								<option id="gnu.c.compiler.option.optimization.flags.1926519162" name="Other optimization flags" superClass="gnu.c.compiler.option.optimization.flags" useByScannerDiscovery="false" value="-fno-common" valueType="string"/>
@@ -565,8 +565,6 @@
 								<option id="com.crt.advproject.gas.arch.1996026292" name="Architecture" superClass="com.crt.advproject.gas.arch" value="com.crt.advproject.gas.target.cm0plus" valueType="enumerated"/>
 								<option id="gnu.both.asm.option.flags.crt.1217181068" name="Assembler flags" superClass="gnu.both.asm.option.flags.crt" value="-c -x assembler-with-cpp -D__REDLIB__" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.both.asm.option.include.paths.610649392" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/drivers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/device}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/device/periph7}&quot;"/>
@@ -579,6 +577,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/utilities/str}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/component/lists}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/utilities/debug_console}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/board}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/source}&quot;"/>
 								</option>
 								<option id="gnu.both.asm.option.warnings.nowarn.956338851" name="Suppress warnings (-W)" superClass="gnu.both.asm.option.warnings.nowarn"/>
 								<option id="gnu.both.asm.option.version.2065999146" name="Announce version (-v)" superClass="gnu.both.asm.option.version"/>
@@ -750,7 +750,7 @@
 	<storageModule moduleId="com.nxp.mcuxpresso.core.datamodels">
 		<sdkName>SDK_2.x_FRDM-KE17Z</sdkName>
 		<sdkVersion>24.12.00</sdkVersion>
-		<sdkComponents>project_template.MKE17Z7.MKE17Z7;device.MKE17Z7_startup.MKE17Z7;platform.drivers.lpi2c.MKE17Z7;device.MKE17Z7_CMSIS.MKE17Z7;platform.utilities.assert.MKE17Z7;CMSIS_Include_core_cm.MKE17Z7;platform.drivers.common.MKE17Z7;platform.drivers.port.MKE17Z7;platform.drivers.clock.MKE17Z7;utility.debug_console_template_config.MKE17Z7;component.lpuart_adapter.MKE17Z7;platform.drivers.lpuart.MKE17Z7;device.MKE17Z7_system.MKE17Z7;component.serial_manager_uart.MKE17Z7;utility.str.MKE17Z7;component.lists.MKE17Z7;platform.drivers.gpio.MKE17Z7;component.serial_manager.MKE17Z7;utility.debug_console.MKE17Z7;platform.drivers.smc.MKE17Z7;platform.drivers.adc12.MKE17Z7;platform.drivers.flexio.MKE17Z7;platform.drivers.flexio_spi.MKE17Z7;platform.drivers.flash.MKE17Z7;</sdkComponents>
+		<sdkComponents>project_template.MKE17Z7.MKE17Z7;device.MKE17Z7_startup.MKE17Z7;platform.drivers.lpi2c.MKE17Z7;device.MKE17Z7_CMSIS.MKE17Z7;platform.utilities.assert.MKE17Z7;CMSIS_Include_core_cm.MKE17Z7;platform.drivers.common.MKE17Z7;platform.drivers.port.MKE17Z7;platform.drivers.clock.MKE17Z7;utility.debug_console_template_config.MKE17Z7;component.lpuart_adapter.MKE17Z7;platform.drivers.lpuart.MKE17Z7;device.MKE17Z7_system.MKE17Z7;component.serial_manager_uart.MKE17Z7;utility.str.MKE17Z7;component.lists.MKE17Z7;platform.drivers.gpio.MKE17Z7;component.serial_manager.MKE17Z7;utility.debug_console.MKE17Z7;platform.drivers.smc.MKE17Z7;platform.drivers.adc12.MKE17Z7;platform.drivers.flexio.MKE17Z7;platform.drivers.flexio_spi.MKE17Z7;platform.drivers.flash.MKE17Z7;platform.drivers.ftm.MKE17Z7;</sdkComponents>
 		<package>MKE17Z256VLH7</package>
 		<core>cm0plus</core>
 		<coreId>core0_MKE17Z256xxx7</coreId>

@@ -18,6 +18,7 @@
 /* TODO: insert other include files here. */
 #include "main.h"
 #include "display_mng.h"
+#include "buzzer_mng.h"
 #include "debug_mng.h"
 /* TODO: insert other definitions and declarations here. */
 
@@ -40,6 +41,8 @@
 #define ZONE_7SEGMENT_ANIMATION
 // comment below line to display the timer seven segment on-off animation
 #define TIMER_7SEGMENT_ANIMATION
+// comment the below line to disable the buzzer simulation
+#define SIMULATE_BUZZER
 
 /*--------------------------- Private Variables ------------------------------*/
 static volatile uint32_t milliseconds = 0;
@@ -73,6 +76,9 @@ static void Simulate_ZoneSevenSegment_Animation( void );
 #ifdef TIMER_7SEGMENT_ANIMATION
 static void Simulate_TimerSevenSegment_Animation( void );
 #endif
+#ifdef SIMULATE_BUZZER
+static void Simulate_Buzzer_Play( void );
+#endif
 
 /*
  * @brief   Application entry point.
@@ -91,6 +97,7 @@ int main(void)
 
   SysTick_Init();
   Display_Init();
+  Buzzer_Init();
 
   temp_time = Millis();
   task_10ms_time = temp_time;
@@ -133,6 +140,9 @@ int main(void)
     if( temp_time - task_1sec_time >= TASK_1_SEC )
     {
       task_1sec_time = temp_time;
+      #ifdef SIMULATE_BUZZER
+      Simulate_Buzzer_Play();
+      #endif
       // DBG_PRINTF_GREEN("1sec Task Executing\n");
     }
 
@@ -315,6 +325,23 @@ static void Simulate_TimerSevenSegment_Animation( void )
     // adding 8 minutes 50 seconds just to check the transition from minutes to hours
     // check function content for more information
     Display_SetTime( (temp/1000u) + (8u*60u) + 50u );
+  }
+}
+#endif
+
+#ifdef SIMULATE_BUZZER
+static void Simulate_Buzzer_Play( void )
+{
+  static uint8_t buzz_status = false;
+  if( buzz_status == false )
+  {
+    buzz_status = true;
+    Buzzer_PwmStart();
+  }
+  else
+  {
+    buzz_status = false;
+    Buzzer_PwmStop();
   }
 }
 #endif
