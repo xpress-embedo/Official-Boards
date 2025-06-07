@@ -22,10 +22,17 @@
 #define LED_DRIVER_SPI_SDO_PIN                      (4u)    // this is FlexIO pin
 #define LED_DRIVER_SPI_CLK_PIN                      (0u)    // this is FlexIO pin
 // Not sure what to do with SDI pin, as in HW it is not configured
-#define LED_DRIVER_SPI_SDI_PIN                      (7u)
+#define LED_DRIVER_SPI_SDI_PIN                      (3u)    // (0u)
 // The chip select seems not controlled from FlexIO module and is controlled using normal GPIO logic
 // Actually this is not Chip Select, this is basically Latch Enable pin of Shift Register
-#define LED_DRIVER_SPI_CS_PIN                       (7u)
+#define LED_DRIVER_SPI_CS_PIN                       (3u)    // (0u)
+/* note: PTD5, PTD6, PTD7 are free pins and not connected to anything, PTD5 is
+ * also a FlexIO pin i.e FLEXIO-D3 pin, hence I am using this pin for SDI and CS
+ * this is a workaround, if I keep using 0 for SDI and Chip Select it is corrupting
+ * the clock and the data on logic analyzer doesn't seem nice.
+ * I have also made a forum post on NXP community, will wait for the correct
+ * solution to solve this problem.
+ */
  
  
 /*--------------------------- Private Variables ------------------------------*/

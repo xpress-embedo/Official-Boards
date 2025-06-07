@@ -298,15 +298,15 @@ static void _Display_Blank( void )
 
 static void _Display_Refresh( uint32_t complete_column_data )
 {
-  // uint16_t spi_data;
+  uint16_t spi_data;
 
   // save data in column_data variable which needs to driven directly
   // 0x1F is used because we have only 5 columns which are driven directly
   column_data = (complete_column_data & 0x1F);
 
-  // spi_data = ((complete_column_data & 0x001FFFE0) >> 5u);
+  spi_data = ((complete_column_data & 0x001FFFE0) >> 5u);
 
   // SPI send to shift registers needs to be updated (todo)
-  // LedDriver_Write(spi_data);
+  LedDriver_Write(spi_data);
 }
 

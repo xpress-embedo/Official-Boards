@@ -107,14 +107,14 @@ int main(void)
     if( temp_time - task_1sec_time >= TASK_1_SEC )
     {
       task_1sec_time = temp_time;
-      DBG_PRINTF_GREEN("1sec Task Executing\n");
+      // DBG_PRINTF_GREEN("1sec Task Executing\n");
     }
 
     // 10 sec task
     if( temp_time - task_10sec_time >= TASK_10_SEC )
     {
       task_10sec_time = temp_time;
-      DBG_PRINTF_MAGENTA("10sec Task Executing\n");
+      // DBG_PRINTF_MAGENTA("10sec Task Executing\n");
     }
   }
 
@@ -180,12 +180,13 @@ static void Simulate_KeyLed_Animation( void )
   // time to on all leds sequentially
   if( on_off == 0 )
   {
+    DBG_PRINTF_GREEN("Turning on LED = %d, for Key = %d\n", led_idx, key_idx );
     Display_SetKeyLed( key_idx, led_idx );
     led_idx++;
     // here we have 3 leds per key i.e. TOTAL_NUM_LEDS_PER_KEY
     if( led_idx >= TOTAL_NUM_LEDS_PER_KEY )
     {
-      led_idx++;
+      led_idx = 0;
       key_idx++;
       // here we have 18 switches which has leds on top of them i.e. TOTAL_NUM_SW_LEDS
       if( key_idx >= TOTAL_NUM_SW_LEDS )
@@ -197,18 +198,19 @@ static void Simulate_KeyLed_Animation( void )
   }
   else if( on_off )
   {
+    DBG_PRINTF_GREEN("Turning off LED = %d, for Key = %d\n", led_idx, key_idx );
     Display_ClearKeyLed( key_idx, led_idx );
     led_idx++;
     // here we have 3 leds per key i.e. TOTAL_NUM_LEDS_PER_KEY
     if( led_idx >= TOTAL_NUM_LEDS_PER_KEY )
     {
-      led_idx++;
+      led_idx = 0;
       key_idx++;
       // here we have 18 switches which has leds on top of them i.e. TOTAL_NUM_SW_LEDS
       if( key_idx >= TOTAL_NUM_SW_LEDS )
       {
         key_idx = 0;
-        on_off = 1;
+        on_off = 0;
       }
     }
   }
