@@ -1,0 +1,18 @@
+IEC60730B_CM0_4_4
+Release Name: IEC60730B_rev_4_4
+ 
+IEC60730B_common_rev_4_4
+    Description: Safety Class B test routines according to IEC60730
+    Author: NXP
+    Format: binary files, source code, header files
+    location: common_test directory
+    License File: LICENSE.txt
+    Outgoing License: LA_OPT_NXP_Software_License v50 November 2023 - Additional distribution license granted - Section 2.3 applies
+ 
+IEC60730B_core_rev_4_1
+    Description: Safety Class B test routines according to IEC60730
+    Author: NXP
+    Format: binary files, source code, header files
+    location: core_test directory
+    License File: LICENSE.txt
+    Outgoing License: LA_OPT_NXP_Software_License v50 November 2023 - Additional distribution license granted - Section 2.3 applies
