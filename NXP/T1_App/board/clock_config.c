@@ -110,10 +110,14 @@ called_from_default_init: true
 outputs:
 - {id: Bus_clock.outFreq, value: 24 MHz}
 - {id: Core_clock.outFreq, value: 48 MHz}
+- {id: FIRCDIV2_CLK.outFreq, value: 12 MHz}
 - {id: Flash_clock.outFreq, value: 24 MHz}
 - {id: LPO_clock.outFreq, value: 128 kHz}
+- {id: PCC.PCC_FLEXIO_CLK.outFreq, value: 12 MHz}
 - {id: System_clock.outFreq, value: 48 MHz}
 settings:
+- {id: PCC.PCC_FLEXIO_SEL.sel, value: SCG.FIRCDIV2_CLK}
+- {id: SCG.FIRCDIV2.scale, value: '4', locked: true}
 - {id: SCG_SIRCCSR_SIRCEN_CFG, value: Disabled}
 - {id: SCG_SIRCCSR_SIRCLPEN_CFG, value: Disabled}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
@@ -145,7 +149,7 @@ const scg_sirc_config_t g_scgSircConfig_BOARD_BootClockRUN =
 const scg_firc_config_t g_scgFircConfig_BOARD_BootClockRUN =
     {
         .enableMode = kSCG_FircEnable,            /* Enable FIRC clock */
-        .div2 = kSCG_AsyncClkDisable,             /* Fast IRC Clock Divider 2: Clock output is disabled */
+        .div2 = kSCG_AsyncClkDivBy4,              /* Fast IRC Clock Divider 2: divided by 4 */
         .range = kSCG_FircRange48M,               /* Fast IRC is trimmed to 48MHz */
         .trimConfig = NULL,                       /* Fast IRC Trim disabled */
     };
@@ -174,5 +178,7 @@ void BOARD_BootClockRUN(void)
     } while (curConfig.src != g_sysClkConfig_BOARD_BootClockRUN.src);
     /* Set SystemCoreClock variable. */
     SystemCoreClock = BOARD_BOOTCLOCKRUN_CORE_CLOCK;
+    /* Set PCC FLEXIO selection */
+    CLOCK_SetIpSrc(kCLOCK_Flexio0, kCLOCK_IpSrcFircAsync);
 }
 

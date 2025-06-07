@@ -32,6 +32,8 @@
 // This macro allow helper variables to turn on and off the LEDs, comment this
 // macro to disable the helper variables and function, and save some memory space
 #define SIMULATE_LED_ON_OFF
+// comment this line to switch off all switch keys LEDs animation
+#define KEY_LED_ON_OFF_ANIMATION
 
 /*--------------------------- Private Variables ------------------------------*/
 static volatile uint32_t milliseconds = 0;
@@ -50,6 +52,9 @@ static volatile uint8_t custom_led_idx = TOTAL_NUM_LEDS_PER_KEY;
 static void SysTick_Init( void );
 #ifdef SIMULATE_LED_ON_OFF
 static void Simulate_LedOnOff( void );
+#endif
+#ifdef KEY_LED_ON_OFF_ANIMATION
+static void Simulate_KeyLed_Animation( void );
 #endif
 
 /*
@@ -92,6 +97,9 @@ int main(void)
       task_100ms_time = temp_time;
       #ifdef SIMULATE_LED_ON_OFF
       Simulate_LedOnOff();
+      #endif
+      #ifdef KEY_LED_ON_OFF_ANIMATION
+      Simulate_KeyLed_Animation();
       #endif
     }
 
@@ -158,6 +166,51 @@ static void Simulate_LedOnOff( void )
     Display_ClearKeyLed(custom_key_idx, custom_led_idx);
     custom_key_idx = TOTAL_NUM_SW_LEDS;
     custom_led_idx = TOTAL_NUM_LEDS_PER_KEY;
+  }
+}
+#endif
+
+#ifdef KEY_LED_ON_OFF_ANIMATION
+static void Simulate_KeyLed_Animation( void )
+{
+  static uint8_t on_off = 0;
+  static uint8_t key_idx = 0;
+  static uint8_t led_idx = 0;
+
+  // time to on all leds sequentially
+  if( on_off == 0 )
+  {
+    Display_SetKeyLed( key_idx, led_idx );
+    led_idx++;
+    // here we have 3 leds per key i.e. TOTAL_NUM_LEDS_PER_KEY
+    if( led_idx >= TOTAL_NUM_LEDS_PER_KEY )
+    {
+      led_idx++;
+      key_idx++;
+      // here we have 18 switches which has leds on top of them i.e. TOTAL_NUM_SW_LEDS
+      if( key_idx >= TOTAL_NUM_SW_LEDS )
+      {
+        key_idx = 0;
+        on_off = 1;
+      }
+    }
+  }
+  else if( on_off )
+  {
+    Display_ClearKeyLed( key_idx, led_idx );
+    led_idx++;
+    // here we have 3 leds per key i.e. TOTAL_NUM_LEDS_PER_KEY
+    if( led_idx >= TOTAL_NUM_LEDS_PER_KEY )
+    {
+      led_idx++;
+      key_idx++;
+      // here we have 18 switches which has leds on top of them i.e. TOTAL_NUM_SW_LEDS
+      if( key_idx >= TOTAL_NUM_SW_LEDS )
+      {
+        key_idx = 0;
+        on_off = 1;
+      }
+    }
   }
 }
 #endif

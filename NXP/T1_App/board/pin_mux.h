@@ -190,6 +190,78 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITPINS_HD_COL5_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
                                                         /* @} */
 
+/*! @name PORTC14 (number 30), SHIFTREG_EN
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SHIFTREG_EN_FGPIO FGPIOC              /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_EN_GPIO GPIOC                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_EN_INIT_GPIO_VALUE 0U        /*!<@brief GPIO output initial state */
+#define BOARD_INITPINS_SHIFTREG_EN_GPIO_PIN_MASK (1U << 14U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_INITPINS_SHIFTREG_EN_PORT PORTC                /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_EN_PIN 14U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_SHIFTREG_EN_PIN_MASK (1U << 14U)      /*!<@brief PORT pin mask */
+                                                             /* @} */
+
+/*! @name PORTD2 (number 46), SHIFTREG_MOSI
+  @{ */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_INITPINS_SHIFTREG_MOSI_PORT PORTD               /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_MOSI_PIN 2U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_SHIFTREG_MOSI_PIN_MASK (1U << 2U)      /*!<@brief PORT pin mask */
+                                                              /* @} */
+
+/*! @name PORTD0 (number 2), SHIFTREG_CLK
+  @{ */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_INITPINS_SHIFTREG_CLK_PORT PORTD               /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_CLK_PIN 0U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_SHIFTREG_CLK_PIN_MASK (1U << 0U)      /*!<@brief PORT pin mask */
+                                                             /* @} */
+
+/*! @name PORTA12 (number 56), SHIFTREG_LE
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SHIFTREG_LE_FGPIO FGPIOA              /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_LE_GPIO GPIOA                /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_LE_INIT_GPIO_VALUE 1U        /*!<@brief GPIO output initial state */
+#define BOARD_INITPINS_SHIFTREG_LE_GPIO_PIN_MASK (1U << 12U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_INITPINS_SHIFTREG_LE_PORT PORTA                /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_LE_PIN 12U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_SHIFTREG_LE_PIN_MASK (1U << 12U)      /*!<@brief PORT pin mask */
+                                                             /* @} */
+
+/*! @name PORTA3 (number 47), SHIFTREG_OE
+  @{ */
+
+/* Symbols to be used with GPIO driver */
+#define BOARD_INITPINS_SHIFTREG_OE_FGPIO FGPIOA             /*!<@brief FGPIO peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_OE_GPIO GPIOA               /*!<@brief GPIO peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_OE_INIT_GPIO_VALUE 1U       /*!<@brief GPIO output initial state */
+#define BOARD_INITPINS_SHIFTREG_OE_GPIO_PIN_MASK (1U << 3U) /*!<@brief GPIO pin mask */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_INITPINS_SHIFTREG_OE_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_SHIFTREG_OE_PIN 3U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_SHIFTREG_OE_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
+                                                            /* @} */
+
+/*! @name PORTC15 (number 29), BUZZER
+  @{ */
+
+/* Symbols to be used with PORT driver */
+#define BOARD_INITPINS_BUZZER_PORT PORTC                /*!<@brief PORT peripheral base pointer */
+#define BOARD_INITPINS_BUZZER_PIN 15U                   /*!<@brief PORT pin number */
+#define BOARD_INITPINS_BUZZER_PIN_MASK (1U << 15U)      /*!<@brief PORT pin mask */
+                                                        /* @} */
+
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *

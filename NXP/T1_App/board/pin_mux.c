@@ -24,6 +24,12 @@ pin_labels:
 - {pin_num: '19', pin_signal: ADC0_SE5/TSI0_CH24/PTB4/FTM0_CH4/LPSPI0_SOUT/TRGMUX_IN1, label: HD_COL3, identifier: HD_COL3}
 - {pin_num: '20', pin_signal: ADC0_SE7/ACMP0_IN4/PTC3/FTM0_CH3/FXIO_D7, label: HD_COL4, identifier: HD_COL4}
 - {pin_num: '21', pin_signal: ADC0_SE15/ACMP0_IN5/PTC2/FTM0_CH2/FXIO_D6, label: HD_COL5, identifier: HD_COL5}
+- {pin_num: '30', pin_signal: TSI1_CH19/PTC14/FTM1_CH2, label: SHIFTREG_EN, identifier: SHIFTREG_EN}
+- {pin_num: '46', pin_signal: TSI1_CH6/PTD2/FXIO_D4/LPI2C0_SDA/TRGMUX_IN5, label: SHIFTREG_MOSI, identifier: SHIFTREG_MOSI}
+- {pin_num: '2', pin_signal: TSI0_CH12/PTD0/FTM0_CH2/FTM2_CH0/FXIO_D0/TRGMUX_OUT1, label: SHIFTREG_CLK, identifier: SHIFTREG_CLK}
+- {pin_num: '56', pin_signal: TSI0_CH3/PTA12/LPUART0_TX, label: SHIFTREG_LE, identifier: SHIFTREG_LE}
+- {pin_num: '47', pin_signal: TSI1_CH5/PTA3/LPI2C0_SCL/EWM_IN/LPUART0_TX, label: SHIFTREG_OE, identifier: SHIFTREG_OE}
+- {pin_num: '29', pin_signal: TSI1_CH20/PTC15/FTM1_CH3, label: BUZZER, identifier: BUZZER}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -61,6 +67,12 @@ BOARD_InitPins:
   - {pin_num: '19', peripheral: GPIOB, signal: 'GPIO, 4', pin_signal: ADC0_SE5/TSI0_CH24/PTB4/FTM0_CH4/LPSPI0_SOUT/TRGMUX_IN1, direction: OUTPUT}
   - {pin_num: '20', peripheral: GPIOC, signal: 'GPIO, 3', pin_signal: ADC0_SE7/ACMP0_IN4/PTC3/FTM0_CH3/FXIO_D7, direction: OUTPUT}
   - {pin_num: '21', peripheral: GPIOC, signal: 'GPIO, 2', pin_signal: ADC0_SE15/ACMP0_IN5/PTC2/FTM0_CH2/FXIO_D6, direction: OUTPUT}
+  - {pin_num: '30', peripheral: GPIOC, signal: 'GPIO, 14', pin_signal: TSI1_CH19/PTC14/FTM1_CH2, direction: OUTPUT}
+  - {pin_num: '46', peripheral: FLEXIO, signal: 'D, 4', pin_signal: TSI1_CH6/PTD2/FXIO_D4/LPI2C0_SDA/TRGMUX_IN5, direction: OUTPUT}
+  - {pin_num: '2', peripheral: FLEXIO, signal: 'D, 0', pin_signal: TSI0_CH12/PTD0/FTM0_CH2/FTM2_CH0/FXIO_D0/TRGMUX_OUT1, direction: OUTPUT}
+  - {pin_num: '56', peripheral: GPIOA, signal: 'GPIO, 12', pin_signal: TSI0_CH3/PTA12/LPUART0_TX, direction: OUTPUT, gpio_init_state: 'true'}
+  - {pin_num: '47', peripheral: GPIOA, signal: 'GPIO, 3', pin_signal: TSI1_CH5/PTA3/LPI2C0_SCL/EWM_IN/LPUART0_TX, direction: OUTPUT, gpio_init_state: 'true'}
+  - {pin_num: '29', peripheral: FTM1, signal: 'CH, 3', pin_signal: TSI1_CH20/PTC15/FTM1_CH3, direction: OUTPUT}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -80,7 +92,16 @@ void BOARD_InitPins(void)
     /* Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortC);
     /* Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortD);
+    /* Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortE);
+
+    gpio_pin_config_t SHIFTREG_OE_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 1U
+    };
+    /* Initialize GPIO functionality on pin PTA3 (pin 47)  */
+    GPIO_PinInit(BOARD_INITPINS_SHIFTREG_OE_GPIO, BOARD_INITPINS_SHIFTREG_OE_PIN, &SHIFTREG_OE_config);
 
     gpio_pin_config_t HD_ROW5_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -88,6 +109,13 @@ void BOARD_InitPins(void)
     };
     /* Initialize GPIO functionality on pin PTA10 (pin 58)  */
     GPIO_PinInit(BOARD_INITPINS_HD_ROW5_GPIO, BOARD_INITPINS_HD_ROW5_PIN, &HD_ROW5_config);
+
+    gpio_pin_config_t SHIFTREG_LE_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 1U
+    };
+    /* Initialize GPIO functionality on pin PTA12 (pin 56)  */
+    GPIO_PinInit(BOARD_INITPINS_SHIFTREG_LE_GPIO, BOARD_INITPINS_SHIFTREG_LE_PIN, &SHIFTREG_LE_config);
 
     gpio_pin_config_t HD_ROW3_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -116,6 +144,13 @@ void BOARD_InitPins(void)
     };
     /* Initialize GPIO functionality on pin PTC3 (pin 20)  */
     GPIO_PinInit(BOARD_INITPINS_HD_COL4_GPIO, BOARD_INITPINS_HD_COL4_PIN, &HD_COL4_config);
+
+    gpio_pin_config_t SHIFTREG_EN_config = {
+        .pinDirection = kGPIO_DigitalOutput,
+        .outputLogic = 0U
+    };
+    /* Initialize GPIO functionality on pin PTC14 (pin 30)  */
+    GPIO_PinInit(BOARD_INITPINS_SHIFTREG_EN_GPIO, BOARD_INITPINS_SHIFTREG_EN_PIN, &SHIFTREG_EN_config);
 
     gpio_pin_config_t HD_COL1_config = {
         .pinDirection = kGPIO_DigitalOutput,
@@ -162,11 +197,23 @@ void BOARD_InitPins(void)
     /* PORTA10 (pin 58) is configured as PTA10 */
     PORT_SetPinMux(BOARD_INITPINS_HD_ROW5_PORT, BOARD_INITPINS_HD_ROW5_PIN, kPORT_MuxAsGpio);
 
+    /* PORTA12 (pin 56) is configured as PTA12 */
+    PORT_SetPinMux(BOARD_INITPINS_SHIFTREG_LE_PORT, BOARD_INITPINS_SHIFTREG_LE_PIN, kPORT_MuxAsGpio);
+
     /* PORTA13 (pin 55) is configured as PTA13 */
     PORT_SetPinMux(BOARD_INITPINS_HD_ROW3_PORT, BOARD_INITPINS_HD_ROW3_PIN, kPORT_MuxAsGpio);
 
+    /* PORTA3 (pin 47) is configured as PTA3 */
+    PORT_SetPinMux(BOARD_INITPINS_SHIFTREG_OE_PORT, BOARD_INITPINS_SHIFTREG_OE_PIN, kPORT_MuxAsGpio);
+
     /* PORTB4 (pin 19) is configured as PTB4 */
     PORT_SetPinMux(BOARD_INITPINS_HD_COL3_PORT, BOARD_INITPINS_HD_COL3_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC14 (pin 30) is configured as PTC14 */
+    PORT_SetPinMux(BOARD_INITPINS_SHIFTREG_EN_PORT, BOARD_INITPINS_SHIFTREG_EN_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC15 (pin 29) is configured as FTM1_CH3 */
+    PORT_SetPinMux(BOARD_INITPINS_BUZZER_PORT, BOARD_INITPINS_BUZZER_PIN, kPORT_MuxAlt2);
 
     /* PORTC16 (pin 28) is configured as PTC16 */
     PORT_SetPinMux(BOARD_INITPINS_HD_COL1_PORT, BOARD_INITPINS_HD_COL1_PIN, kPORT_MuxAsGpio);
@@ -179,6 +226,12 @@ void BOARD_InitPins(void)
 
     /* PORTC3 (pin 20) is configured as PTC3 */
     PORT_SetPinMux(BOARD_INITPINS_HD_COL4_PORT, BOARD_INITPINS_HD_COL4_PIN, kPORT_MuxAsGpio);
+
+    /* PORTD0 (pin 2) is configured as FXIO_D0 */
+    PORT_SetPinMux(BOARD_INITPINS_SHIFTREG_CLK_PORT, BOARD_INITPINS_SHIFTREG_CLK_PIN, kPORT_MuxAlt6);
+
+    /* PORTD2 (pin 46) is configured as FXIO_D4 */
+    PORT_SetPinMux(BOARD_INITPINS_SHIFTREG_MOSI_PORT, BOARD_INITPINS_SHIFTREG_MOSI_PIN, kPORT_MuxAlt4);
 
     /* PORTE0 (pin 60) is configured as PTE0 */
     PORT_SetPinMux(BOARD_INITPINS_HD_ROW4_PORT, BOARD_INITPINS_HD_ROW4_PIN, kPORT_MuxAsGpio);

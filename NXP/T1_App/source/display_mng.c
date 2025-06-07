@@ -6,6 +6,7 @@
  */
 
 #include "display_mng.h"
+#include "led_driver.h"
 
 /*------------------------------Private Macros -------------------------------*/
 #define MAX_ROWS                                  (6u)
@@ -125,16 +126,35 @@ void Display_Init( void )
  OUT_LINE( HD_COL4 );
  OUT_LINE( HD_COL5 );
 
+ // initialize latch enable signal
+ OUT_LINE( HD_SHIFT_LE );
+ CLR_LINE( HD_SHIFT_LE );
+
+ // initialize the shift register enable pin, this will turn on the shift register supply
+ OUT_LINE( HD_SHIFT_EN );
+ CLR_LINE( HD_SHIFT_EN );   // low means supply on
+
+ // output enable is initialized and set to high to display the output at init.
+ OUT_LINE( HD_SHIFT_OE );
+ SET_LINE( HD_SHIFT_OE );
+
+ // initialize the led driver to send data over SPI bus using FLEXIO module
+ LedDriver_Init();
+
  _Display_Blank();
 
- // Test Code
- SET_LINE( HD_COL5 );
- CLR_LINE( HD_ROW1 );
- CLR_LINE( HD_ROW2 );
- CLR_LINE( HD_ROW3 );
- CLR_LINE( HD_ROW4 );
- CLR_LINE( HD_ROW5 );
- CLR_LINE( HD_ROW6 );
+ row_num = 0;
+ column_data = 0;
+
+ // Test Code starts
+//  SET_LINE( HD_COL5 );
+//  CLR_LINE( HD_ROW1 );
+//  CLR_LINE( HD_ROW2 );
+//  CLR_LINE( HD_ROW3 );
+//  CLR_LINE( HD_ROW4 );
+//  CLR_LINE( HD_ROW5 );
+//  CLR_LINE( HD_ROW6 );
+ // Test Code ends
 }
 
 void Display_Mng( void )
@@ -171,10 +191,22 @@ void Display_Update( void )
       row_num = 0;
     }
 
+    // enable the shift register power supply
+    // note: it is already enabled & not disabled, but still displaying again
+    CLR_LINE( HD_SHIFT_EN );
+
+    // disable the output of the shift register
+    SET_LINE( HD_SHIFT_OE );
+    
     // display all rows and columns
     _Display_Blank();
     // this will be used for SPI data for Shift Register and extract direct LED Data
     _Display_Refresh( int_display_buffer[old_row_num] );
+
+    // display refresh function above sen the data to shift register
+    // now we need to give the latch enable signal high to low
+    // when low signal is received, the data input reaches the shift register output
+    SET_LINE( HD_SHIFT_LE );
 
     // enable row after transmitting the column data
     switch ( old_row_num )
@@ -195,6 +227,11 @@ void Display_Update( void )
     if( column_data & 0x08 )          SET_LINE( HD_COL4 );
     if( column_data & 0x10 )          SET_LINE( HD_COL5 );
 
+    // disabling the latch pulse now
+    CLR_LINE( HD_SHIFT_LE );
+    // enabling the output enable of the shift register
+    CLR_LINE( HD_SHIFT_OE );
+    
     // Display Update Logic Ends Here
   }
 }
