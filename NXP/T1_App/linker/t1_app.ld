@@ -9,8 +9,8 @@
  * MCUXpresso IDE v24.12 [Build 148] [2025-01-10] on 07-Jun-2025, 2:52:09 pm
  */
 
-INCLUDE "T1_App_Debug_library.ld"
-INCLUDE "T1_App_Debug_memory.ld"
+INCLUDE "t1_app_library.ld"
+INCLUDE "t1_app_memory.ld"
 
 ENTRY(ResetISR)
 

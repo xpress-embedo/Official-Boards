@@ -42,7 +42,7 @@
 // comment below line to display the timer seven segment on-off animation
 #define TIMER_7SEGMENT_ANIMATION
 // comment the below line to disable the buzzer simulation
-#define SIMULATE_BUZZER
+// #define SIMULATE_BUZZER
 
 /*--------------------------- Private Variables ------------------------------*/
 static volatile uint32_t milliseconds = 0;
