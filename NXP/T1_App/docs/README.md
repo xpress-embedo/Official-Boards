@@ -16,3 +16,14 @@ NXP provide tests of the following components that can be used in application to
 * Invariable Memory - Checks CRC memory
 * Variable Memory - Checks on-chip RAM for DC faults
 * CPU Stack Test - Checks application stack overflow and underflow conditions
+
+## IEC 60730 Categories
+The IEC 60730 standard classifies applicable equipment into three categories:
+
+* Class A: Not intended to be relied upon for the safety of the equipment
+* Class B: To prevent unsafe operation of the controlled equipment
+* Class C: To prevent special hazards
+
+NXP provides IEC 60730 safety class B libraries to help manufacturers of automatic controls in the large appliance market meet the IEC 60730 class B regulation.
+
+These libraries are available in standalone form for use with any supported NXP product or within the MCUXpresso SDK with associated examples for several evaluation boards.
