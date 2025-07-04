@@ -11,7 +11,7 @@ product: Pins v17.0
 processor: MKE17Z256xxx7
 package_id: MKE17Z256VLH7
 mcu_data: ksdk2_0
-processor_version: 24.12.10
+processor_version: 25.06.10
 pin_labels:
 - {pin_num: '53', pin_signal: TSI0_CH0/PTE6/LPSPI0_PCS2/LPUART1_RTS, label: HD_ROW1, identifier: HD_ROW1}
 - {pin_num: '54', pin_signal: TSI0_CH1/PTE2/LPSPI0_SOUT/LPTMR0_ALT3/PWT_IN3/LPUART1_CTS, label: HD_ROW2, identifier: HD_ROW2}

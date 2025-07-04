@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="MKE17Z256xxx7" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_17 http://mcuxpresso.nxp.com/XSD/mex_configuration_17.xsd" uuid="ea631e19-6df6-48b5-88bb-c7b0b65ebcfb" version="17" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_17" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="MKE17Z256xxx7" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_18 http://mcuxpresso.nxp.com/XSD/mex_configuration_18.xsd" uuid="ea631e19-6df6-48b5-88bb-c7b0b65ebcfb" version="18" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_18" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
       <processor>MKE17Z256xxx7</processor>
       <package>MKE17Z256VLH7</package>
@@ -13,6 +13,7 @@
       <validate_boot_init_only>true</validate_boot_init_only>
       <generate_code_modified_registers_only>false</generate_code_modified_registers_only>
       <update_include_paths>true</update_include_paths>
+      <enable_parallel_routing>true</enable_parallel_routing>
       <generate_registers_defines>false</generate_registers_defines>
    </preferences>
    <tools>
@@ -22,7 +23,7 @@
             <file path="board/pin_mux.h" update_enabled="true"/>
          </generated_project_files>
          <pins_profile>
-            <processor_version>24.12.10</processor_version>
+            <processor_version>25.06.10</processor_version>
             <pin_labels>
                <pin_label pin_num="53" pin_signal="TSI0_CH0/PTE6/LPSPI0_PCS2/LPUART1_RTS" label="HD_ROW1" identifier="HD_ROW1"/>
                <pin_label pin_num="54" pin_signal="TSI0_CH1/PTE2/LPSPI0_SOUT/LPTMR0_ALT3/PWT_IN3/LPUART1_CTS" label="HD_ROW2" identifier="HD_ROW2"/>
@@ -177,13 +178,13 @@
             </function>
          </functions_list>
       </pins>
-      <clocks name="Clocks" version="15.0" enabled="true" update_project_code="true">
+      <clocks name="Clocks" version="17.0" enabled="true" update_project_code="true">
          <generated_project_files>
             <file path="board/clock_config.c" update_enabled="true"/>
             <file path="board/clock_config.h" update_enabled="true"/>
          </generated_project_files>
          <clocks_profile>
-            <processor_version>24.12.10</processor_version>
+            <processor_version>25.06.10</processor_version>
          </clocks_profile>
          <clock_configurations>
             <clock_configuration name="BOARD_BootClockRUN" id_prefix="" prefix_user_defined="false">
@@ -224,19 +225,12 @@
          <dcdx_configurations/>
       </dcdx>
       <periphs name="Peripherals" version="15.0" enabled="true" update_project_code="true">
-         <dependencies>
-            <dependency resourceType="Tool" resourceId="Clocks" description="The Clocks tool is required by the Peripherals tool, but it is disabled." problem_level="2" source="Peripherals">
-               <feature name="enabled" evaluation="equal">
-                  <data>true</data>
-               </feature>
-            </dependency>
-         </dependencies>
          <generated_project_files>
             <file path="board/peripherals.c" update_enabled="true"/>
             <file path="board/peripherals.h" update_enabled="true"/>
          </generated_project_files>
          <peripherals_profile>
-            <processor_version>24.12.10</processor_version>
+            <processor_version>25.06.10</processor_version>
          </peripherals_profile>
          <functional_groups>
             <functional_group name="BOARD_InitPeripherals" uuid="0abe96c4-e8fb-4c4d-839b-5b3255c5ceca" called_from_default_init="true" id_prefix="" core="core0">

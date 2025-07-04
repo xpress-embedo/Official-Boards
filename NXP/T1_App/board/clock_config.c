@@ -23,11 +23,11 @@
 /* clang-format off */
 /* TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 !!GlobalInfo
-product: Clocks v15.0
+product: Clocks v17.0
 processor: MKE17Z256xxx7
 package_id: MKE17Z256VLH7
 mcu_data: ksdk2_0
-processor_version: 24.12.10
+processor_version: 25.06.10
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS **********/
 /* clang-format on */
 

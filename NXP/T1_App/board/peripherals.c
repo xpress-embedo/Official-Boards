@@ -10,7 +10,7 @@ product: Peripherals v15.0
 processor: MKE17Z256xxx7
 package_id: MKE17Z256VLH7
 mcu_data: ksdk2_0
-processor_version: 24.12.10
+processor_version: 25.06.10
 functionalGroups:
 - name: BOARD_InitPeripherals
   UUID: 0abe96c4-e8fb-4c4d-839b-5b3255c5ceca
